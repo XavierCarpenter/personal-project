@@ -1,0 +1,53 @@
+.App-header {
+  background: #004B7F;
+  height: 8vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.App-title {
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: row;
+  padding:25px 20px;
+}
+.search{
+    display: flex;
+    flex-direction: row;
+     padding:25px 20px;
+}
+.search input{
+    width: 15vw;
+    height: 2em;
+}
+.search input[type=text]{
+
+}
+.search button{
+  background: #003F6B;
+  border-color: #004B7F;
+    height: 2.6em;
+}
+.search button:hover{
+    cursor: pointer;
+  
+    color: #0096FF;
+}
+.nav{
+    display: flex;
+   padding:25px 20px;
+}
+.nav Link{
+text-decoration: none;
+}
+.nav p{
+     color: white;
+     text-decoration: none;
+     padding: 10px 10px;
+   
+    
+}
+.nav p:hover{
+    color: #0096FF;
+}
