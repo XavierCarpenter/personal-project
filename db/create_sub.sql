@@ -1,0 +1,1 @@
+INSERT INTO subscriptions (user_id, bus_id) VALUES ($1, $2);

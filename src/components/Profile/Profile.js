@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 class Profile extends Component {
   componentDidMount() {
@@ -7,7 +8,14 @@ class Profile extends Component {
     // There's a few ways to handle this.
   }
   render() {
-    return "Profile";
+    return <div> 
+      <h1>Profile</h1>
+      <h2>Subscriptions:</h2>
+      <ul>
+
+      </ul>
+
+    </div>
   }
 }
 

@@ -36,6 +36,7 @@
 }
 .nav{
     display: flex;
+    
    padding:25px 20px;
 }
 .nav Link{
@@ -45,8 +46,14 @@ text-decoration: none;
      color: white;
      text-decoration: none;
      padding: 10px 10px;
-   
-    
+}
+.nav h1{
+    color: white;
+    position: relative;
+     text-decoration: none;
+     padding: 10px 10px;
+     display: flex;
+     flex-direction: flex-end;
 }
 .nav p:hover{
     color: #0096FF;

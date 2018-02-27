@@ -10,6 +10,7 @@ const massive = require("massive");
 const path = require("path");
 
 const bc = require(`${__dirname}/controllers/business_controller`);
+const sc = require(`${__dirname}/controllers/sub_controller`);
 
 const port = 3001;
 
@@ -86,6 +87,7 @@ app.get(
     failureRedirect: "http://locahost:3000/#/login"
   }),
   (req, res) => {
+    console.log(req.user);
     res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
   }
 );
@@ -105,6 +107,10 @@ app.get("/logout", (req, res) => {
 app.get("/api/businesses", bc.getAll);
 app.get("/api/businesses/:type", bc.getType);
 app.get("/api/business/:id", bc.getOne);
+
+//subscribers
+app.post("/api/subscriptions", sc.createSub);
+app.get("/api/subscriptions", sc.getSubs);
 
 // FOR TESTING PURPOSES
 
