@@ -27,23 +27,23 @@ class Explore extends Component {
     // console.log(this.props);
     const temp1 = this.state.businesses.WebDeveloper
     console.log(temp1);
-    const webDevelopers = temp1.map((business, i) => (
-      <div>
-        <h3>
-          {business.name} {business.jobtype}
-        </h3>
-        <h3> {business.state}</h3>
-        <Link to={`/business/${business.id}`} key={i}>
-        <p>View Portfolio</p>
-      </Link>
-      </div>
-    ));
+    // const webDevelopers = temp1.map((business, i) => (
+    //   <div>
+    //     <h3>
+    //       {business.name} {business.jobtype}
+    //     </h3>
+    //     <h3> {business.state}</h3>
+    //     <Link to={`/business/${business.id}`} key={i}>
+    //     <p>View Portfolio</p>
+    //   </Link>
+    //   </div>
+    // ));
     return <div>
         {this.props.user.name ? <div>
             {/* <h1>{this.props.user.authid}</h1> */}
             <h1>{this.props.user.name}</h1>
             <h1>Web Developers</h1>
-            {webDevelopers}
+            {/* {webDevelopers} */}
             <a href={process.env.REACT_APP_LOGOUT}>
               <button>Logout</button>
             </a>
