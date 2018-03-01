@@ -12,6 +12,7 @@ const path = require("path");
 // const checkForSession = require(`${__dirname}/middlewares/checkForSession`);
 const bc = require(`${__dirname}/controllers/business_controller`);
 const sc = require(`${__dirname}/controllers/sub_controller`);
+const uc = require(`${__dirname}/controllers/user_controller`);
 
 const port = 3001;
 
@@ -112,6 +113,11 @@ app.get("/api/business/:id", bc.getOne);
 //subscribers
 app.post("/api/subscriptions", sc.createSub);
 app.get("/api/subscriptions/:id", sc.getSubs);
+
+//update user info
+app.put("/api/user/name", uc.updateName);
+app.put("/api/user/:id", uc.updateCity);
+app.put("/api/user/state", uc.updateState);
 
 // FOR TESTING PURPOSES
 

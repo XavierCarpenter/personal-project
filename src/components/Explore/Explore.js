@@ -24,7 +24,7 @@ class Explore extends Component {
  
   }
   render() {
-    // console.log(this.props.businesses)
+    console.log(this.props.businesses)
   
  
 
