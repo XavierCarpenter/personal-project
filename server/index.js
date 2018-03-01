@@ -9,6 +9,7 @@ const Auth0Strategy = require("passport-auth0");
 const massive = require("massive");
 const path = require("path");
 
+// const checkForSession = require(`${__dirname}/middlewares/checkForSession`);
 const bc = require(`${__dirname}/controllers/business_controller`);
 const sc = require(`${__dirname}/controllers/sub_controller`);
 
@@ -87,7 +88,7 @@ app.get(
     failureRedirect: "http://locahost:3000/#/login"
   }),
   (req, res) => {
-    console.log(req.user);
+
     res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
   }
 );
@@ -99,7 +100,7 @@ app.get("/api/me", (req, res) => {
 
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("http://localhost:3000/#/login");
+    res.redirect("http://localhost:3000/#/");
   });
 });
 
@@ -110,7 +111,7 @@ app.get("/api/business/:id", bc.getOne);
 
 //subscribers
 app.post("/api/subscriptions", sc.createSub);
-app.get("/api/subscriptions", sc.getSubs);
+app.get("/api/subscriptions/:id", sc.getSubs);
 
 // FOR TESTING PURPOSES
 

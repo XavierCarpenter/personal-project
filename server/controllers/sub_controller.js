@@ -10,11 +10,14 @@ module.exports = {
       .catch(() => res.status(500).json());
   },
   getSubs: (req, res, next) => {
+       console.log("hit controller");
     const dbInstance = req.app.get("db");
+    
+    
 
     dbInstance
-      .get_subs()
-      .then(products => res.status(200).json(products))
+      .get_subs([req.params.id])
+      .then(subs =>res.status(200).json(subs))
       .catch(() => res.status(500).json());
   }
 };

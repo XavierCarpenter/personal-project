@@ -9,7 +9,7 @@ import BusProfile from "./components/BusProfile/BusProfile";
 
 export default (
   <Switch>
-    <Route exact path="/" component={Explore} />
+    <Route exact path="/" component={Landing} />
     <Route path="/login" component={Login} />
     <Route path="/user/:id" component={Profile} />
     <Route path="/businesses" component={Explore}/>

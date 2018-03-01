@@ -1,6 +1,6 @@
 module.exports = {
   getAll: (req, res, next) => {
-    console.log("hit controller");
+   
     const dbInstance = req.app.get("db");
 
     dbInstance

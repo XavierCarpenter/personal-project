@@ -3,7 +3,9 @@ import axios from "axios";
 // CONSTANTS
 
 const GET_USER = "GET_USER";
-const GET_INFO = "GET_INFO";
+const GET_BUSINESSES = "GET_BUSINESSES"
+// const GET_SUBS = "GET_SUBS";
+// const UPDATE_SUBS ="UPDATE_SUBS";
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_CITY = "UPDATE_CITY";
 
@@ -19,6 +21,17 @@ export function getUser() {
   };
 }
 
+export function getBusinesses(){
+  return {
+    type: GET_BUSINESSES,
+    payload: axios
+    .get("/api/businesses")
+    .then(response => response.data)
+    .catch(console.log())
+  };
+}
+
+
 
 // INITIAL STATE
 
@@ -28,7 +41,10 @@ const initialState = {
   didErr: false,
   errMessage: null,
   email: "",
-  city: ""
+  city: "",
+  
+  businesses: "",
+
 };
 
 export default function reducer(state = initialState, action) {
@@ -50,6 +66,19 @@ export default function reducer(state = initialState, action) {
 
     case UPDATE_CITY:
       return Object.assign({}, state, { city: action.payload });
+
+    
+    case `${GET_BUSINESSES}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+
+    case `${GET_BUSINESSES}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        businesses: action.payload
+      });
+
+    case `${GET_BUSINESSES}_REJECTED`:
+      return Object.assign({}, state, { isLoading: false, didErr: true });
     default:
       return state;
   }
