@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import { connect } from "react-redux";
-import "./Header.css"
+import "./Header.css";
 import { Link, withRouter } from "react-router-dom";
-import { getUser } from "../../ducks/reducer";
+import { getUser, searchInput } from "../../ducks/reducer";
 
 
 
@@ -21,10 +21,12 @@ class Header extends Component {
             <header className="App-header">
               <h1 className="App-title">Wavvie</h1>
               <div className="search">
-                <input type="text" placeholder="Search..." />
-                <button type="submit">
-                  <i className="fas fa-search" />
-                </button>
+                <input type="text" placeholder="Search..." onChange={e => this.props.searchInput(e.target.value)} />
+                <Link to="/type">
+                  <button type="submit">
+                    <i className="fas fa-search" />
+                  </button>
+                </Link>
               </div>
               <div className="nav">
                 <Link to="/businesses">
@@ -42,10 +44,12 @@ class Header extends Component {
             <header className="App-header">
               <h1 className="App-title">Wavvie</h1>
               <div className="search">
-                <input type="text" placeholder="Search..." />
-                <button type="submit">
-                  <i className="fas fa-search" />
-                </button>
+                <input type="text" placeholder="Search..." onChange={e => this.props.searchInput(e.target.value)} />
+                <Link to="/type">
+                  <button type="submit">
+                    <i className="fas fa-search" />
+                  </button>
+                </Link>
               </div>
               <div className="nav">
                 <Link to="/businesses">
@@ -63,4 +67,4 @@ class Header extends Component {
 
 const mapStateToProps = state => state;
 
-export default withRouter(connect(mapStateToProps, { getUser })(Header));
+export default withRouter(connect(mapStateToProps, { getUser, searchInput })(Header));

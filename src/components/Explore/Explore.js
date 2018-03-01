@@ -6,6 +6,7 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import { getUser } from "../../ducks/reducer";
 import { getBusinesses } from "../../ducks/reducer"; 
+import Landing from "../Landing/Landing";
 
 
 // We'll use an href to handle the logout so we can redirect from the server
@@ -23,8 +24,8 @@ class Explore extends Component {
  
   }
   render() {
-    console.log(this.props.businesses)
-    // console.log(this.props);
+    // console.log(this.props.businesses)
+  
  
 
     return <div>
@@ -97,7 +98,7 @@ class Explore extends Component {
                 }
               )}
           </div> : <div>
-            <h1>No User On Session</h1>
+            <Landing />
           </div>}
       </div>;
   }

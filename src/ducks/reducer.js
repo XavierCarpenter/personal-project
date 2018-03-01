@@ -8,6 +8,7 @@ const GET_BUSINESSES = "GET_BUSINESSES"
 // const UPDATE_SUBS ="UPDATE_SUBS";
 const UPDATE_EMAIL = "UPDATE_EMAIL";
 const UPDATE_CITY = "UPDATE_CITY";
+const SEARCH_INPUT = "SEARCH_INPUT";
 
 // ACTION CREATORS
 
@@ -31,6 +32,13 @@ export function getBusinesses(){
   };
 }
 
+export function searchInput(e){
+  return {
+    type: SEARCH_INPUT,
+    payload: e
+  };
+}
+
 
 
 // INITIAL STATE
@@ -41,8 +49,8 @@ const initialState = {
   didErr: false,
   errMessage: null,
   email: "",
-  city: "",
-  
+  location: "",
+  search: "",
   businesses: "",
 
 };
@@ -67,7 +75,6 @@ export default function reducer(state = initialState, action) {
     case UPDATE_CITY:
       return Object.assign({}, state, { city: action.payload });
 
-    
     case `${GET_BUSINESSES}_PENDING`:
       return Object.assign({}, state, { isLoading: true });
 
@@ -79,6 +86,10 @@ export default function reducer(state = initialState, action) {
 
     case `${GET_BUSINESSES}_REJECTED`:
       return Object.assign({}, state, { isLoading: false, didErr: true });
+
+    case SEARCH_INPUT:
+    // console.log(action.payload)
+      return Object.assign({}, state, { search: action.payload });
     default:
       return state;
   }
