@@ -7,11 +7,14 @@ import ExploreType from "./components/ExploreType/ExploreType";
 import Login from "./components/Login/Login";
 import Profile from "./components/Profile/Profile";
 import BusProfile from "./components/BusProfile/BusProfile";
+import SetupProfile from "./components/SetupProfile/SetupProfile";
+
 
 export default (
   <Switch>
     <Route exact path="/" component={Landing} />
     <Route path="/login" component={Login} />
+    <Route path="/setup/:id" component={SetupProfile} />
     <Route path="/user/:id" component={Profile} />
     <Route path="/businesses" component={Explore} />
     <Route path="/business/:id" component={BusProfile} />

@@ -13,6 +13,7 @@ const path = require("path");
 const bc = require(`${__dirname}/controllers/business_controller`);
 const sc = require(`${__dirname}/controllers/sub_controller`);
 const uc = require(`${__dirname}/controllers/user_controller`);
+const pc = require(`${__dirname}/controllers/profile_controller`);
 
 const port = 3001;
 
@@ -89,8 +90,12 @@ app.get(
     failureRedirect: "http://locahost:3000/#/login"
   }),
   (req, res) => {
-
-    res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
+    console.log(req.user);
+    if (!req.user.city) {
+      res.redirect(`http://localhost:3000/#/setup/${req.user.name}`);
+    } else {
+      res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
+    }
   }
 );
 
@@ -115,9 +120,10 @@ app.post("/api/subscriptions", sc.createSub);
 app.get("/api/subscriptions/:id", sc.getSubs);
 
 //update user info
-app.put("/api/user/name", uc.updateName);
-app.put("/api/user/:id", uc.updateCity);
-app.put("/api/user/state", uc.updateState);
+
+app.put("/api/user/:id", uc.updateInfo);
+app.put("/api/newuser/", uc.updateInfo);
+app.put("/api/profile/:id", pc.updateInfo);
 
 // FOR TESTING PURPOSES
 

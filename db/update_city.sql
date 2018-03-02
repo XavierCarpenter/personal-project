@@ -1,1 +1,0 @@
-UPDATE users SET city = $1 WHERE id = $2;
