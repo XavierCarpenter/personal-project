@@ -5,7 +5,7 @@ module.exports = {
     console.log(params, body);
 
     dbInstance
-      .update_info([params.id, body.name, body.city, body.state])
+      .update_info([params.id, body.name, body.city, body.state, body.profilepic])
       .then(() => res.status(200).json())
       .catch(() => res.status(500).json());
   }

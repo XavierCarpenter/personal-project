@@ -15,6 +15,7 @@ const UPDATE_BUSCITY = "UPDATE_BUSCITY";
 const UPDATE_BUSSTATE = "UPDATE_BUSSTATE";
 const UPDATE_BUSBIO = "UPDATE_BUSBIO";
 const UPDATE_BUSEMAIL = "UPDATE_BUSEMAIL";
+const UPDATE_PROFILEPIC = "UPDATE_PROFILEPIC";
 
 // ACTION CREATORS
 
@@ -35,10 +36,10 @@ export function updateName(e){
   };
 }
 
-export function updateProfileType(){
+export function updateProfilePic(e){
   return {
-    // type: 
-    // payload: 
+    type: UPDATE_PROFILEPIC,
+    payload: e
     
   };
 }
@@ -121,6 +122,7 @@ const initialState = {
   name: "",
   city: "",
   state: "",
+  profilePic: "",
   email: "",
   location: "",
   search: "",
@@ -159,6 +161,9 @@ export default function reducer(state = initialState, action) {
 
     case UPDATE_STATE:
       return Object.assign({}, state, { state: action.payload });
+
+    case UPDATE_PROFILEPIC:
+      return Object.assign({}, state, { profilePic: action.payload });
 
     case UPDATE_BUSNAME:
       return Object.assign({}, state, { busName: action.payload });

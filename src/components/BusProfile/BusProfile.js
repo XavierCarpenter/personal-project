@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { getUser } from "../../ducks/reducer";
 import { withRouter } from "react-router-dom";
 
+
 class BusProfile extends Component {
     constructor() {
     super()
@@ -52,6 +53,7 @@ class BusProfile extends Component {
               <h3>Location: {this.state.businessInfo[0].address}</h3>
             </div>
           </div>}
+       
       </div>;
   }
 }
