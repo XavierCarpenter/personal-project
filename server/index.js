@@ -114,6 +114,7 @@ app.get("/logout", (req, res) => {
 app.get("/api/businesses", bc.getAll);
 app.get("/api/businesses/:type", bc.getType);
 app.get("/api/business/:id", bc.getOne);
+app.get("/api/buspic/", bc.pofilePic);
 
 //subscribers
 app.post("/api/subscriptions", sc.createSub);
@@ -124,6 +125,7 @@ app.get("/api/subscriptions/:id", sc.getSubs);
 app.put("/api/user/:id", uc.updateInfo);
 app.put("/api/newuser/", uc.updateInfo);
 app.put("/api/profile/:id", pc.updateInfo);
+app.get("/api/profilepic/:id", uc.profilePic);
 
 // FOR TESTING PURPOSES
 

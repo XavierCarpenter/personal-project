@@ -41,7 +41,7 @@ class BusProfile extends Component {
         <Header />
         {this.state.businessInfo.length > 0 && <div>
             <div className="about_strp">
-              <img src="#" className="profile" />
+              <img src={this.state.businessInfo[0].profilepic} alt="profile" classNAme="profilepic" />
               <h2>{this.state.businessInfo[0].jobtype}</h2>
               <button>Schedule Appointment</button>
               <button onClick={() => this.addSub()}>Subscribe</button>
@@ -53,7 +53,6 @@ class BusProfile extends Component {
               <h3>Location: {this.state.businessInfo[0].address}</h3>
             </div>
           </div>}
-       
       </div>;
   }
 }

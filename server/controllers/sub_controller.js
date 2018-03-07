@@ -10,7 +10,7 @@ module.exports = {
       .catch(() => res.status(500).json());
   },
   getSubs: (req, res, next) => {
-       console.log("hit controller");
+      //  console.log("hit controller");
     const dbInstance = req.app.get("db");
     
     

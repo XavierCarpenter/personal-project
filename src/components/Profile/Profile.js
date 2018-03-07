@@ -12,7 +12,8 @@ class Profile extends Component {
     this.state = {
       subscriptions: "",
       editClick: false,
-      selectedFile: null
+      selectedFile: null,
+      profileUrl: ""
     };
     this.editActive = this.editActive.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
@@ -30,6 +31,12 @@ class Profile extends Component {
         this.setState({ subscriptions: response.data });
       })
       .catch(console.log);
+
+      axios
+        .get(`/api/profilepic/${this.props.user.id}`)
+        .then(response => {
+          this.setState({ profileUrl: response.data });
+        });
   }
   editActive() {
     this.setState({ editClick: true });
@@ -54,11 +61,28 @@ class Profile extends Component {
 
   render() {
     console.log(this.state.subscriptions);
-    console.log(this.props.profilePic);
+    console.log(this.state.profileUrl);
+    // let profileUrl = this.state.profileUrl;
+    //  profileUrl.map((pic, i) =>{
+    //     return <div key={i}>
+    //     </div>
+    // }
+      
+    // )
+    
     return <div>
         <Header />
         <h1>Profile</h1>
-        <img src={(this.props.profilePic)} alt="profile"/>
+       { this.state.profileUrl && this.state.profileUrl.map(
+         (pic, i) => {
+           return (
+             <div key={i}>
+             <img src={pic.profilepic} alt="profile" classNAme="profilepic"/>
+             </div>
+           )
+         }
+       )}
+      
         
         <h2>Subscriptions:</h2>
         {this.state.subscriptions && this.state.subscriptions.map(

@@ -5,8 +5,24 @@ module.exports = {
     console.log(params, body);
 
     dbInstance
-      .update_info([params.id, body.name, body.city, body.state, body.profilepic])
+      .update_info([
+        params.id,
+        body.name,
+        body.city,
+        body.state,
+        body.profilepic
+      ])
       .then(() => res.status(200).json())
       .catch(() => res.status(500).json());
+  },
+  profilePic: (req, res, next) => {
+    console.log("hit controller");
+    const dbInstance = req.app.get("db");
+    const { params } = req;
+
+    dbInstance
+      .get_profilepic([params.id])
+      .then(pic => res.status(200).json(pic))
+      .catch((err) => console.log(err));
   }
 };
