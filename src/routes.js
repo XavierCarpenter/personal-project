@@ -14,7 +14,7 @@ export default (
   <Switch>
     <Route exact path="/" component={Landing} />
     <Route path="/login" component={Login} />
-    <Route path="/setup/:id" component={SetupProfile} />
+    <Route path="/setup/" component={SetupProfile} />
     <Route path="/user/:id" component={Profile} />
     <Route path="/businesses" component={Explore} />
     <Route path="/business/:id" component={BusProfile} />

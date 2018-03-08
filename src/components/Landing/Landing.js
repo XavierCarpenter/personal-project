@@ -20,7 +20,7 @@ class Landing extends Component {
             <div className="slide">
               <div className="overlay">
                 <div className="landing-nav">
-                  <h1>Wavvie</h1>
+                  <h1>Fre3Agent</h1>
                   <a href={process.env.REACT_APP_LOGIN}>
                     <p>Login</p>
                   </a>
@@ -38,7 +38,7 @@ class Landing extends Component {
             <div className="slide">
               <div className="overlay">
                 <div className="landing-nav">
-                  <h1>Wavvie</h1>
+                  <h1>Fre3Agent</h1>
                   <a href={process.env.REACT_APP_LOGIN}>
                     <p>Login</p>
                   </a>
@@ -56,7 +56,7 @@ class Landing extends Component {
             <div className="slide">
               <div className="overlay">
                 <div className="landing-nav">
-                  <h1>Wavvie</h1>
+                  <h1>Fre3Agent</h1>
                   <a href={process.env.REACT_APP_LOGIN}>
                     <p>Login</p>
                   </a>

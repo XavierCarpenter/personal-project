@@ -2,6 +2,8 @@ import axios from "axios";
 
 // CONSTANTS
 
+const UPDATE_BUSPROFILE = "UPDATE_BUSPROFILE";
+const UPDATE_GENPROFILE = "UPDATE_GENPROFILE";
 const GET_USER = "GET_USER";
 const UPDATE_NAME = "UPDATE_NAME";
 const GET_BUSINESSES = "GET_BUSINESSES"
@@ -11,6 +13,8 @@ const UPDATE_STATE = "UPDATE_STATE";
 const SEARCH_INPUT = "SEARCH_INPUT";
 const UPDATE_BUSNAME = "UPDATE_BUSNAME";
 const UPDATE_BUSTYPE = "UPDATE_BUSTYPE";
+const UPDATE_BUSPHONE = "UPDATE_BUSPHONE";
+const UPDATE_BUSADDRESS = "UPDATE_BUSADDRESS";
 const UPDATE_BUSCITY = "UPDATE_BUSCITY";
 const UPDATE_BUSSTATE = "UPDATE_BUSSTATE";
 const UPDATE_BUSBIO = "UPDATE_BUSBIO";
@@ -26,6 +30,18 @@ export function getUser() {
       .request({ url: "/api/me" })
       .then(response => response.data)
       .catch(err => err.message)
+  };
+}
+export function updateBusProfile(){
+  return {
+    type: UPDATE_BUSPROFILE,
+    payload: true
+  };
+}
+export function updateGenProfile(){
+  return {
+    type: UPDATE_GENPROFILE,
+    payload: true
   };
 }
 
@@ -86,6 +102,20 @@ export function updateBusType(e){
   };
 }
 
+export function updateBusPhone(e){
+  return {
+    type: UPDATE_BUSPHONE,
+    payload: e
+  };
+}
+
+export function updateBusAddress(e){
+  return {
+    type: UPDATE_BUSADDRESS,
+    payload: e
+  };
+}
+
 export function updateBusCity(e){
   return {
     type: UPDATE_BUSCITY,
@@ -115,6 +145,8 @@ export function updateBusEmail(e){
 // INITIAL STATE
 
 const initialState = {
+  busProfile: false,
+  genProfile: false,
   user: {},
   isLoading: false,
   didErr: false,
@@ -128,6 +160,8 @@ const initialState = {
   search: "",
   busName: "",
   busType: "",
+  busAddress: "",
+  busPhone: "",
   busCity: "",
   busState: "",
   busBio: "",
@@ -150,6 +184,11 @@ export default function reducer(state = initialState, action) {
     case `${GET_USER}_REJECTED`:
       return Object.assign({}, state, { isLoading: false, didErr: true });
 
+    case UPDATE_BUSPROFILE:
+      return Object.assign({}, state, { busProfile: action.payload });
+    case UPDATE_GENPROFILE:
+      return Object.assign({}, state, { genProfile: action.payload });
+
     case UPDATE_EMAIL:
       return Object.assign({}, state, { email: action.payload });
 
@@ -170,6 +209,12 @@ export default function reducer(state = initialState, action) {
 
     case UPDATE_BUSTYPE:
       return Object.assign({}, state, { busType: action.payload });
+
+    case UPDATE_BUSPHONE:
+      return Object.assign({}, state, { busPhone: action.payload });
+
+    case UPDATE_BUSADDRESS:
+      return Object.assign({}, state, { busAddress: action.payload });
 
     case UPDATE_BUSBIO:
       return Object.assign({}, state, { busBio: action.payload });

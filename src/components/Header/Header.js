@@ -8,10 +8,7 @@ import { getUser, searchInput } from "../../ducks/reducer";
 
 
 class Header extends Component {
-  constructor() {
-    super();
-   
-  }
+  
   componentDidMount() {
     this.props.getUser();
   }
@@ -19,7 +16,7 @@ class Header extends Component {
     return <div>
         {this.props.user.name ? <div>
             <header className="App-header">
-              <h1 className="App-title">Wavvie</h1>
+              <h1 className="App-title">Fre3Agent</h1>
               <div className="search">
                 <input type="text" placeholder="Search..." onChange={e => this.props.searchInput(e.target.value)} />
                 <Link to="/type">
@@ -42,7 +39,7 @@ class Header extends Component {
             </header>
           </div> : <div>
             <header className="App-header">
-              <h1 className="App-title">Wavvie</h1>
+              <h1 className="App-title">Fre3Agent</h1>
               <div className="search">
                 <input type="text" placeholder="Search..." onChange={e => this.props.searchInput(e.target.value)} />
                 <Link to="/type">

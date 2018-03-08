@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Header from "../Header/Header";
+import BusProfile from "../BusProfile/BusProfile"
 import { connect } from "react-redux";
-import { getUser, getBusinesses, updateCity, updateState, updateProfilePic } from "../../ducks/reducer";
+import {
+  getUser,
+  getBusinesses,
+  updateCity,
+  updateState,
+  updateProfilePic,
+  updateBusPofile,
+  updateGenPofile
+} from "../../ducks/reducer";
 import { withRouter } from "react-router-dom";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
@@ -72,12 +81,14 @@ class Profile extends Component {
     
     return <div>
         <Header />
+  
+        <div>
         <h1>Profile</h1>
        { this.state.profileUrl && this.state.profileUrl.map(
          (pic, i) => {
            return (
              <div key={i}>
-             <img src={pic.profilepic} alt="profile" classNAme="profilepic"/>
+             <img src={pic.profilepic} alt="profile" className="profilepic"/>
              </div>
            )
          }
@@ -106,6 +117,8 @@ class Profile extends Component {
               <ImageUploader />
             </div> : null}
         </div>
+        </div>
+    
       </div>;
   }
 }

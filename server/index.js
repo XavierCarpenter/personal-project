@@ -67,11 +67,11 @@ passport.use(
         .get("db")
         .getUserByAuthId(profile.id)
         .then(response => {
+          console.log(response[0]);
           if (!response[0]) {
-            app
-              .get("db")
-              .createUserByAuthId([profile.id, profile.displayName])
-              .then(created => done(null, created[0]));
+            // Here just send the profile to be attached to req.user and redirected to the setup page. You'll store them on the submit on the setup page
+  
+            return done(null, profile);
           } else {
             return done(null, response[0]);
           }
@@ -91,9 +91,12 @@ app.get(
   }),
   (req, res) => {
     console.log(req.user);
+    //if user don't have account
     if (!req.user.city) {
-      res.redirect(`http://localhost:3000/#/setup/${req.user.name}`);
+      //send to setup
+      res.redirect(`http://localhost:3000/#/setup/`);
     } else {
+      //send to profile
       res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
     }
   }
@@ -114,7 +117,10 @@ app.get("/logout", (req, res) => {
 app.get("/api/businesses", bc.getAll);
 app.get("/api/businesses/:type", bc.getType);
 app.get("/api/business/:id", bc.getOne);
-app.get("/api/buspic/", bc.pofilePic);
+app.get("/api/hours/:id", bc.getHours);
+
+//create New Business
+app.post("/api/profile/:id", bc.createBus);
 
 //subscribers
 app.post("/api/subscriptions", sc.createSub);
@@ -124,7 +130,7 @@ app.get("/api/subscriptions/:id", sc.getSubs);
 
 app.put("/api/user/:id", uc.updateInfo);
 app.put("/api/newuser/", uc.updateInfo);
-app.put("/api/profile/:id", pc.updateInfo);
+
 app.get("/api/profilepic/:id", uc.profilePic);
 
 // FOR TESTING PURPOSES
