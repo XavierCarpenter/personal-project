@@ -60,19 +60,29 @@ class SetupProfile extends Component {
     alert("Profile Created");
   }
   updateBusInfo() {
-    let body = {
-      name: this.props.busName,
-      busType: this.props.BusType,
-      phone: this.props.busPhone,
-      city: this.props.BusCity,
-      state: this.props.BusState,
-      bio: this.props.BusBio,
-      email: this.props.BusEmail,
-    };
+    console.log(this.props.user)
+    let auth = {
+      id: this.props.user.id,
+      name: this.props.user.displayname
+    }
 
-    axios.post(`/api/profile/${this.props.user.id}`, body).then(results => {
+    axios.post(`/api/profile/${this.props.user.id}`,auth).then(results => {
       this.props.user.push;
     });
+    console.log(this.props, "props here")
+    // let body = {
+    //   name: this.props.busName,
+    //   busType: this.props.BusType,
+    //   phone: this.props.busPhone,
+    //   city: this.props.BusCity,
+    //   state: this.props.BusState,
+    //   bio: this.props.BusBio,
+    //   email: this.props.BusEmail,
+    // };
+
+    // axios.post(`/api/profile/${this.props.user.id}`, body).then(results => {
+    //   this.props.user.push;
+    // });
     this.setState({ editClick: false });
     alert("Profile Created");
   }
@@ -84,7 +94,8 @@ class SetupProfile extends Component {
       updateBusCity,
       updateBusState,
       updateBusBio,
-      updateBusEmail
+      updateBusEmail,
+      updateBusPhone
     } = this.props;
 
     return <div className="parent-div">
@@ -114,7 +125,7 @@ class SetupProfile extends Component {
             <input type="text" placeholder="State" onChange={e => updateBusState(e.target.value)} />
             <p>Your bio </p> <br />
             <input type="text" placeholder="about your business" onChange={e => updateBusBio(e.target.value)} />
-            <Link to="/businesses">
+            <Link to="/user/this.props.user.name">
               <button onClick={this.updateBusInfo} className="margin-btn">Save Info</button>
             </Link>
           </div> : <div>

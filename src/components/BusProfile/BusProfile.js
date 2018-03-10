@@ -3,8 +3,12 @@ import axios from "axios";
 import "./BusProfile.css";
 import Header from "../Header/Header";
 import { connect } from "react-redux";
+import BusPic from "../BusPic/BusPic";
+import Image from "react-image-resizer";
+
 import {
   getUser,
+   updateBusPic,
   updateBusName,
   updateBusCity,
   updateBusState,
@@ -23,6 +27,7 @@ class BusProfile extends Component {
     super();
     this.state = { 
       businessInfo: [], 
+      busHours: [],
       editClick: false, 
       selectedFile: null, 
       profileUrl: "" 
@@ -38,6 +43,17 @@ class BusProfile extends Component {
     // In here you could go get the user data from this.props.match.params
     // Or you could handle the redirect from the router.
     // There's a few ways to handle this.
+    axios
+      .get(`/api/hours/${this.props.match.params.id}`)
+      .then(results => {
+        this.setState({ busHours: results.data });
+      });
+        //get business profile pic
+       axios
+         .get(`/api/buspic/${this.props.match.params.id}`)
+         .then(response => {
+           this.setState({ profileUrl: response.data });
+         });
   }
 
   //user visiting buisness profile
@@ -59,7 +75,7 @@ class BusProfile extends Component {
 
   updateInfo() {
     let body = {
-      name: this.props.user.busName,
+      name: this.props.busName,
       email: this.props.busEmail,
       jobtype: this.props.busType,
       phone: this.props.busEmail,
@@ -67,11 +83,11 @@ class BusProfile extends Component {
       city: this.props.busCity,
       state: this.props.busState,
       bio: this.props.busBio,
-      profilepic: this.props.profilePic,
+      profilepic: this.props.busPic,
     };
 
     axios
-      .put(`/api/profile/${this.props.user.id}`, body)
+      .put(`/api/profile/${this.props.match.params.id}`, body)
       .then(results => {
         this.props.user.push;
       });
@@ -79,18 +95,14 @@ class BusProfile extends Component {
     alert("Profile Updated");
   }
   render() {
-    // console.log(this.state.businessInfo[0]);
-    return (
-      <div className="main-container">
+    console.log(this.state.busHours[0]);
+        console.log(this.state.profileUrl);
+
+    return <div className="main-container">
         <Header />
-        {this.state.businessInfo.length > 0 && (
-          <div>
+        {this.state.businessInfo.length > 0 && <div>
             <div className="about_strp">
-              <img
-                src={this.state.businessInfo[0].profilepic}
-                alt="profile"
-                className="profilepic"
-              />
+              <Image src={this.state.businessInfo[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />
               <h2>{this.state.businessInfo[0].jobtype}</h2>
               <button>Schedule Appointment</button>
               <button onClick={() => this.addSub()}>Subscribe</button>
@@ -102,32 +114,33 @@ class BusProfile extends Component {
               <h3>Location: {this.state.businessInfo[0].address}</h3>
             </div>
             <div>
+              {this.state.busHours.length > 0 && <div>
+                  <h1>Hours Of Operation</h1>
+                  <ul>
+                    <li>Sun: {this.state.busHours[0].sun}</li>
+                    <li>Mon: {this.state.busHours[0].mon}</li>
+                    <li>Tue: {this.state.busHours[0].tue}</li>
+                    <li>Wed: {this.state.busHours[0].wed}</li>
+                    <li>Thur: {this.state.busHours[0].thur}</li>
+                    <li>Fri: {this.state.busHours[0].fri}</li>
+                    <li>Sat: {this.state.busHours[0].sat}</li>
+                  </ul>
+                </div>}
               <button onClick={this.editActive}>Edit Profile</button>
-              {this.state.editClick === true ? (
-                <div>
-                  <input
-                    type="text"
-                    placeholder={this.props.user.name}
-                    onChange={e => this.props.user.name(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    placeholder="City"
-                    onChange={e => this.props.updateCity(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    placeholder="State"
-                    onChange={e => this.props.updateState(e.target.value)}
-                  />
+              {this.state.editClick === true ? <div>
+                  <input type="text" placeholder={this.state.businessInfo[0].name} onChange={e => this.props.updateBusName(e.target.value)} />
+                  <input type="text" placeholder={this.state.businessInfo[0].jobtype} onChange={e => this.props.updateBusType(e.target.value)} />
+                  <input type="text" placeholder={this.state.businessInfo[0].bio} onChange={e => this.props.updateBusBio(e.target.value)} />
+                  <input type="text" placeholder={this.state.businessInfo[0].phone} onChange={e => this.props.updateBusPhone(e.target.value)} />
+                  <input type="text" placeholder={this.state.businessInfo[0].address} onChange={e => this.props.updateBusAddress(e.target.value)} />
+                  <input type="text" placeholder="City" onChange={e => this.props.updateBusCity(e.target.value)} />
+                  <input type="text" placeholder="State" onChange={e => this.props.updateBusState(e.target.value)} />
                   <button onClick={this.updateInfo}>Submit</button>
-                </div>
-              ) : null}
+                  <BusPic />
+                </div> : null}
             </div>
-          </div>
-        )}
-      </div>
-    );
+          </div>}
+      </div>;
   }
 }
 

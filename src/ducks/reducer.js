@@ -19,6 +19,7 @@ const UPDATE_BUSCITY = "UPDATE_BUSCITY";
 const UPDATE_BUSSTATE = "UPDATE_BUSSTATE";
 const UPDATE_BUSBIO = "UPDATE_BUSBIO";
 const UPDATE_BUSEMAIL = "UPDATE_BUSEMAIL";
+const UPDATE_BUSPIC = "UPDATE_BUSPIC";
 const UPDATE_PROFILEPIC = "UPDATE_PROFILEPIC";
 
 // ACTION CREATORS
@@ -102,6 +103,14 @@ export function updateBusType(e){
   };
 }
 
+export function updateBusPic(e){
+  return {
+    type: UPDATE_BUSPIC,
+    payload: e
+    
+  };
+}
+
 export function updateBusPhone(e){
   return {
     type: UPDATE_BUSPHONE,
@@ -160,6 +169,7 @@ const initialState = {
   search: "",
   busName: "",
   busType: "",
+  busPic: "",
   busAddress: "",
   busPhone: "",
   busCity: "",
@@ -209,6 +219,9 @@ export default function reducer(state = initialState, action) {
 
     case UPDATE_BUSTYPE:
       return Object.assign({}, state, { busType: action.payload });
+
+    case UPDATE_BUSPIC:
+      return Object.assign({}, state, { busPic: action.payload });
 
     case UPDATE_BUSPHONE:
       return Object.assign({}, state, { busPhone: action.payload });

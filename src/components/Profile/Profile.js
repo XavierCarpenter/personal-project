@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "../Header/Header";
 import BusProfile from "../BusProfile/BusProfile"
 import { connect } from "react-redux";
+import Image from 'react-image-resizer';
 import {
   getUser,
   getBusinesses,
@@ -88,7 +89,9 @@ class Profile extends Component {
          (pic, i) => {
            return (
              <div key={i}>
-             <img src={pic.profilepic} alt="profile" className="profilepic"/>
+             <Image src={pic.profilepic} alt="profile" className="profilepic"
+             height={240}
+             width={240}/>
              </div>
            )
          }

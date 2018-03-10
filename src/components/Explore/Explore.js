@@ -7,6 +7,8 @@ import axios from "axios";
 import { getUser } from "../../ducks/reducer";
 import { getBusinesses } from "../../ducks/reducer"; 
 import Landing from "../Landing/Landing";
+import Image from "react-image-resizer";
+
 
 
 // We'll use an href to handle the logout so we can redirect from the server
@@ -14,6 +16,9 @@ import Landing from "../Landing/Landing";
 class Explore extends Component {
   constructor(){
     super();
+    this.state = { 
+      profileUrl: "" 
+    };
    
 
   }
@@ -21,16 +26,31 @@ class Explore extends Component {
     this.props.getUser();
     this.props.getBusinesses();
 
+     axios
+       .get(`/api/buspic/${this.props.match.params.id}`)
+       .then(response => {
+         this.setState({ profileUrl: response.data });
+       });
  
   }
   render() {
     console.log(this.props.businesses)
+     
+      let profileUrl
+      this.state.profileUrl ?
+       profileUrl = this.state.profileUrl.map((pic, i) => {
+           return <div key={i}>
+               <Image src={pic.profilepic} alt="profile" className="profilepic" height={240} width={240} />
+             </div>;
+         }) : null;
+         console.log(profileUrl)
+     
   
  
 
     return <div>
-        <Header />
         {this.props.user.name ? <div className="main_container">
+            <Header />
             {/* <h1>{this.props.user.authid}</h1> */}
             {/* <h1>{this.props.user.name}</h1> */}
             <h1 className="title">Web Developers</h1>
@@ -39,6 +59,13 @@ class Explore extends Component {
                   return (
                     <div key={i} className="box">
                       <div className="box-content">
+                        <Image
+                          src={business.profilepic}
+                          alt="profile"
+                          className="profilepic"
+                          height={240}
+                          width={240}
+                        />
                         <h3>{business.name}</h3>
                         <h3> {business.state}</h3>
                         <Link to={`/business/${business.id}`} key={i}>
@@ -55,6 +82,13 @@ class Explore extends Component {
                   return (
                     <div key={i} className="box">
                       <div className="box-content">
+                        <Image
+                          src={business.profilepic}
+                          alt="profile"
+                          className="profilepic"
+                          height={240}
+                          width={240}
+                        />
                         <h3>{business.name}</h3>
                         <h3> {business.state}</h3>
                         <Link to={`/business/${business.id}`} key={i}>
@@ -71,6 +105,13 @@ class Explore extends Component {
                   return (
                     <div key={i} className="box">
                       <div className="box-content">
+                        <Image
+                          src={business.profilepic}
+                          alt="profile"
+                          className="profilepic"
+                          height={240}
+                          width={240}
+                        />
                         <h3>{business.name}</h3>
                         <h3> {business.state}</h3>
                         <Link to={`/business/${business.id}`} key={i}>
@@ -87,6 +128,13 @@ class Explore extends Component {
                   return (
                     <div key={i} className="box">
                       <div className="box-content">
+                        <Image
+                          src={business.profilepic}
+                          alt="profile"
+                          className="profilepic"
+                          height={240}
+                          width={240}
+                        />
                         <h3>{business.name}</h3>
                         <h3> {business.state}</h3>
                         <Link to={`/business/${business.id}`} key={i}>

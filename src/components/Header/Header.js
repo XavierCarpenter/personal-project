@@ -13,6 +13,7 @@ class Header extends Component {
     this.props.getUser();
   }
   render() {
+    console.log(this.props.user)
     return <div>
         {this.props.user.name ? <div>
             <header className="App-header">
@@ -32,7 +33,7 @@ class Header extends Component {
                 <a href={process.env.REACT_APP_LOGOUT}>
                   <p>Logout</p>
                 </a>
-                <Link to="/user/:id">
+                <Link to={`/user/${this.props.user.name}`}>
                   <h1>Hello, {this.props.user.name}</h1>
                 </Link>
               </div>

@@ -30,7 +30,7 @@ class Landing extends Component {
                 </div>
                 <h2 id="subtitle">Quality Profesionals</h2>
                 <p id="subtext">
-                  With Wavvie it's easy to find quality individuals across
+                  Fre3Agent makes it's easy to find quality individuals across
                   many different professions
                 </p>
               </div>
@@ -48,8 +48,8 @@ class Landing extends Component {
                 </div>
                 <h2 id="subtitle">Instant Scheduling</h2>
                 <p id="subtext">
-                  No more waiting in line or missing appointments. Wavvie
-                  makes it simple and fast to Scheduling appointments.
+                  No more waiting in line or missing appointments. Fre3Agent
+                  makes it simple and fast to Schedule appointments.
                 </p>
               </div>
             </div>

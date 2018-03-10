@@ -33,32 +33,34 @@ module.exports = {
       .then(business => res.status(200).json(business))
       .catch(() => res.status(500).json());
   },
-    getHours: (req, res, next) => {
+  getHours: (req, res, next) => {
     const dbInstance = req.app.get("db");
     const { params } = req;
-    
 
     dbInstance
-      .get_hours([req.params.id])
-      .then(hours =>res.status(200).json(hours))
+      .get_hours([params.id])
+      .then(hours => res.status(200).json(hours))
+      .catch(() => res.status(500).json());
+  },
+  profilePic: (req, res, next) => {
+    const dbInstance = req.app.get("db");
+    const { params } = req;
+
+    dbInstance
+      .get_buspic([params.id])
+      .then(pic => res.status(200).json(pic))
       .catch(() => res.status(500).json());
   },
   createBus: (req, res, next) => {
     const dbInstance = req.app.get("db");
     // const { params, body } = req;
-    const {name, busType, city, state, bio, email} = req.body
+    // const {busid} = req.user.id;
+    const { id, name } = req.body;
     console.log("hit controller");
     console.log(req.body);
 
     dbInstance
-      .create_bus([
-        name,
-        busType,
-        city,
-        state,
-        bio,
-        email
-      ])
+      .create_bus([id, name])
       .then(() => res.status(200).json())
       .catch(() => res.status(500).json());
   }

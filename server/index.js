@@ -90,7 +90,7 @@ app.get(
     failureRedirect: "http://locahost:3000/#/login"
   }),
   (req, res) => {
-    console.log(req.user);
+    // console.log(req.user);
     //if user don't have account
     if (!req.user.city) {
       //send to setup
@@ -118,6 +118,8 @@ app.get("/api/businesses", bc.getAll);
 app.get("/api/businesses/:type", bc.getType);
 app.get("/api/business/:id", bc.getOne);
 app.get("/api/hours/:id", bc.getHours);
+app.get("/api/buspic/:id", bc.profilePic);
+
 
 //create New Business
 app.post("/api/profile/:id", bc.createBus);
