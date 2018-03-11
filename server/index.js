@@ -67,12 +67,13 @@ passport.use(
         .get("db")
         .getUserByAuthId(profile.id)
         .then(response => {
-          console.log(response[0]);
+      
           if (!response[0]) {
-            // Here just send the profile to be attached to req.user and redirected to the setup page. You'll store them on the submit on the setup page
-  
-            return done(null, profile);
-          } else {
+            app
+              .get("db")
+              .createUserByAuthId([profile.id, profile.displayName])
+              .then(created => done(null, created[0]));
+            } else {
             return done(null, response[0]);
           }
         });
@@ -113,7 +114,7 @@ app.get("/logout", (req, res) => {
   });
 });
 
-//info from database
+//get business info
 app.get("/api/businesses", bc.getAll);
 app.get("/api/businesses/:type", bc.getType);
 app.get("/api/business/:id", bc.getOne);
@@ -122,7 +123,8 @@ app.get("/api/buspic/:id", bc.profilePic);
 
 
 //create New Business
-app.post("/api/profile/:id", bc.createBus);
+app.put("/api/setbus/:id", uc.createBus);
+app.post("/api/createbus/:id", bc.createBus)
 
 //subscribers
 app.post("/api/subscriptions", sc.createSub);

@@ -52,6 +52,7 @@ class BusProfile extends Component {
        axios
          .get(`/api/buspic/${this.props.match.params.id}`)
          .then(response => {
+           console.log(response.data);
            this.setState({ profileUrl: response.data });
          });
   }
@@ -95,14 +96,13 @@ class BusProfile extends Component {
     alert("Profile Updated");
   }
   render() {
-    console.log(this.state.busHours[0]);
-        console.log(this.state.profileUrl);
 
     return <div className="main-container">
         <Header />
         {this.state.businessInfo.length > 0 && <div>
             <div className="about_strp">
-              <Image src={this.state.businessInfo[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />
+            { this.state.profileUrl &&
+              <Image src={this.state.profileUrl[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />}
               <h2>{this.state.businessInfo[0].jobtype}</h2>
               <button>Schedule Appointment</button>
               <button onClick={() => this.addSub()}>Subscribe</button>
@@ -121,7 +121,7 @@ class BusProfile extends Component {
                     <li>Mon: {this.state.busHours[0].mon}</li>
                     <li>Tue: {this.state.busHours[0].tue}</li>
                     <li>Wed: {this.state.busHours[0].wed}</li>
-                    <li>Thur: {this.state.busHours[0].thur}</li>
+                    <li>Thur: {this.state.busHours[0].thurs}</li>
                     <li>Fri: {this.state.busHours[0].fri}</li>
                     <li>Sat: {this.state.busHours[0].sat}</li>
                   </ul>

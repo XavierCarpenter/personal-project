@@ -1,10 +1,31 @@
+.profile_body{
+    background: #f4f4f4;
+    height: 100vh;
+    width: 100%;
+}
 .profilepic{
-   position: relative;
-   float: left;
-   max-width: 17vw;
-   min-width: 17vw;
-   max-height: 17vh;
-   min-height: 17vh;   
-   object-fit: scale-down;
+
+   display: flex;
+   margin-left: 5%;
  
+}
+hr {
+    border: none;
+    height: 7px;
+    /* Set the hr color */
+    background-color: #F16C43; 
+}
+.clicks h2{
+    font-style: bold;
+    font-size: 1.3em;
+}
+.clicks h2:hover{
+    cursor: pointer;
+    color: #F16C43;
+    font-style: bold;
+}
+.editProfile{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 5%;
 }

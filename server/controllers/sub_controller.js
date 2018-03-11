@@ -17,7 +17,7 @@ module.exports = {
 
     dbInstance
       .get_subs([req.params.id])
-      .then(subs =>res.status(200).json(subs))
+      .then(subs => res.status(200).json(subs))
       .catch(() => res.status(500).json());
   }
 };

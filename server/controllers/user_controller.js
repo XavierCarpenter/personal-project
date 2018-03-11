@@ -23,6 +23,19 @@ module.exports = {
     dbInstance
       .get_profilepic([params.id])
       .then(pic => res.status(200).json(pic))
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
+  },
+  createBus: (req, res, next) => {
+    const dbInstance = req.app.get("db");
+    const { params, body } = req;
+ 
+
+    dbInstance
+      .new_bus([
+        params.id,
+        body.profileType,
+      ])
+      .then(() => res.status(200).json())
+      .catch(() => res.status(500).json());
   }
 };

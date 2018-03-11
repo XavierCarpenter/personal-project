@@ -53,14 +53,11 @@ module.exports = {
   },
   createBus: (req, res, next) => {
     const dbInstance = req.app.get("db");
-    // const { params, body } = req;
-    // const {busid} = req.user.id;
-    const { id, name } = req.body;
-    console.log("hit controller");
-    console.log(req.body);
+    const { busid, bustype, email, phone, bio, address } = req.body;
+    // console.log(req.body);
 
     dbInstance
-      .create_bus([id, name])
+      .create_bus([busid, bustype, email, phone, bio, address])
       .then(() => res.status(200).json())
       .catch(() => res.status(500).json());
   }

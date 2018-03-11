@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "./Profile.css";
 import axios from "axios";
 import Header from "../Header/Header";
-import BusProfile from "../BusProfile/BusProfile"
+import BusProfile from "../BusProfile/BusProfile";
 import { connect } from "react-redux";
-import Image from 'react-image-resizer';
+import Image from "react-image-resizer";
 import {
   getUser,
   getBusinesses,
@@ -23,11 +24,11 @@ class Profile extends Component {
       subscriptions: "",
       editClick: false,
       selectedFile: null,
-      profileUrl: ""
+      profileUrl: "",
+      appointments: 0,
     };
     this.editActive = this.editActive.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
-
   }
   componentDidMount() {
     this.props.getBusinesses();
@@ -38,15 +39,14 @@ class Profile extends Component {
     axios
       .get(`/api/subscriptions/${this.props.user.id}`)
       .then(response => {
+        console.log(response.data);
         this.setState({ subscriptions: response.data });
       })
       .catch(console.log);
 
-      axios
-        .get(`/api/profilepic/${this.props.user.id}`)
-        .then(response => {
-          this.setState({ profileUrl: response.data });
-        });
+    axios.get(`/api/profilepic/${this.props.user.id}`).then(response => {
+      this.setState({ profileUrl: response.data });
+    });
   }
   editActive() {
     this.setState({ editClick: true });
@@ -67,61 +67,57 @@ class Profile extends Component {
     alert("Profile Updated");
   }
 
-
-
   render() {
     console.log(this.state.subscriptions);
-    console.log(this.state.profileUrl);
+
     // let profileUrl = this.state.profileUrl;
     //  profileUrl.map((pic, i) =>{
     //     return <div key={i}>
     //     </div>
     // }
-      
+
     // )
-    
-    return <div>
+
+    return <div className="profile_body">
         <Header />
-  
+
         <div>
-        <h1>Profile</h1>
-       { this.state.profileUrl && this.state.profileUrl.map(
-         (pic, i) => {
-           return (
-             <div key={i}>
-             <Image src={pic.profilepic} alt="profile" className="profilepic"
-             height={240}
-             width={240}/>
-             </div>
-           )
-         }
-       )}
-      
+          {this.props.user.name}
+          {this.state.profileUrl && this.state.profileUrl.map((pic, i) => {
+              return <div key={i}>
+                  <Image src={pic.profilepic} alt="profile" className="profilepic" height={240} width={240} />
+                </div>;
+            })}
+            <hr></hr>
         
-        <h2>Subscriptions:</h2>
-        {this.state.subscriptions && this.state.subscriptions.map(
-            (obj, i) => {
-              return (
-                <div key={i}>
-                  <h2>
-                    {obj.name} {obj.jobtype}
-                  </h2>
-                </div>
-              );
-            }
-          )}
-        <div>
-          <button onClick={this.editActive}>Edit Profile</button>
-          {this.state.editClick === true ? <div>
-              <input type="text" placeholder={this.props.user.name} onChange={e => this.props.user.name(e.target.value)} />
-              <input type="text" placeholder="City" onChange={e => this.props.updateCity(e.target.value)} />
-              <input type="text" placeholder="State" onChange={e => this.props.updateState(e.target.value)} />
-              <button onClick={this.updateInfo}>Submit</button>
-              <ImageUploader />
-            </div> : null}
+          <div className="clicks">
+            <h2>Appointments</h2>
+            <h2>Subscriptions</h2>
+
+            {this.state.subscriptions && this.state.subscriptions.map(
+                (obj, i) => {
+                  return (
+                    <div key={i}>
+                      <p>
+                        {obj.name} {obj.jobtype}
+                      </p>
+                    </div>
+                  );
+                }
+              )}
+            <h2>Order History</h2>
+          </div>
+          <div className="editProfile">
+            <button onClick={this.editActive}>Edit Profile</button>
+            {this.state.editClick === true ? <div>
+                <input type="text" placeholder={this.props.user.name} onChange={e => this.props.user.name(e.target.value)} />
+                <input type="text" placeholder="City" onChange={e => this.props.updateCity(e.target.value)} />
+                <input type="text" placeholder="State" onChange={e => this.props.updateState(e.target.value)} />
+                <button onClick={this.updateInfo}>Submit</button>
+                <ImageUploader />
+              </div> : null}
+          </div>
         </div>
-        </div>
-    
       </div>;
   }
 }
@@ -129,5 +125,11 @@ class Profile extends Component {
 const mapStateToProps = state => state;
 
 export default withRouter(
-  connect(mapStateToProps, { getUser, getBusinesses, updateCity, updateState, updateProfilePic })(Profile)
+  connect(mapStateToProps, {
+    getUser,
+    getBusinesses,
+    updateCity,
+    updateState,
+    updateProfilePic
+  })(Profile)
 );

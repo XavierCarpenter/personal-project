@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
+import ImageUploader from "../ImageUploader/ImageUploader";
+
 import {
   updateBusName,
   updateBusCity,
@@ -23,27 +25,25 @@ class SetupProfile extends Component {
   constructor() {
     super();
     this.state = {
-      busClick: true,
-      genClick: false
+      busClick: false
     };
     this.busActive = this.busActive.bind(this);
-    this.genActive = this.genActive.bind(this);
+
     this.updateInfo = this.updateInfo.bind(this);
     this.updateBusInfo = this.updateBusInfo.bind(this);
-    
   }
-   componentDidMount() {
+  componentDidMount() {
     this.props.getUser();
-
-   }
-
-  busActive() {
-    console.log("hit")
-    this.setState({ busClick: !this.state.busClick });
   }
-
-  genActive() {
-    this.setState({ genClick: true });
+  //update profileType when user select yes
+  busActive() {
+    let profileType = "business";
+    axios
+      .put(`/api/setbus/${this.props.user.id}`, profileType)
+      .then(results => {
+        this.props.user.push;
+      });
+    this.setState({ busClick: true });
   }
 
   updateInfo() {
@@ -60,34 +60,34 @@ class SetupProfile extends Component {
     alert("Profile Created");
   }
   updateBusInfo() {
-    console.log(this.props.user)
-    let auth = {
-      id: this.props.user.id,
-      name: this.props.user.displayname
-    }
-
-    axios.post(`/api/profile/${this.props.user.id}`,auth).then(results => {
+    console.log(this.props.user);
+    let info = {
+      busid: this.props.user.id,
+      bustype: this.props.busType,
+      email: this.props.busEmail,
+      phone: this.props.busPhone,
+      bio: this.props.busBio,
+      address: this.props.busAddress
+    };
+    axios.post(`/api/createbus/${this.props.user.id}`, info).then(results => {
       this.props.user.push;
     });
-    console.log(this.props, "props here")
-    // let body = {
-    //   name: this.props.busName,
-    //   busType: this.props.BusType,
-    //   phone: this.props.busPhone,
-    //   city: this.props.BusCity,
-    //   state: this.props.BusState,
-    //   bio: this.props.BusBio,
-    //   email: this.props.BusEmail,
-    // };
 
-    // axios.post(`/api/profile/${this.props.user.id}`, body).then(results => {
-    //   this.props.user.push;
-    // });
+    let body = {
+      name: this.props.busName,
+      city: this.props.busCity,
+      state: this.props.busState,
+      profilepic: this.props.profilePic
+    };
+
+    axios.put(`/api/user/${this.props.user.id}`, body).then(results => {
+      this.props.user.push;
+    });
     this.setState({ editClick: false });
     alert("Profile Created");
   }
   render() {
-    console.log(this.props.user)
+    console.log(this.props.user);
     const {
       updateBusName,
       updateBusType,
@@ -95,18 +95,21 @@ class SetupProfile extends Component {
       updateBusState,
       updateBusBio,
       updateBusEmail,
-      updateBusPhone
+      updateBusPhone,
+      updateBusAddress
     } = this.props;
 
     return <div className="parent-div">
         {this.state.busClick == true ? <div className="vert-align">
-            <p>What type of profile do you need?</p> <br />
-            <select onChange={e => {this.busActive(e.target.value); this.props.updateBusProfile()}}>
-              <option type="text" value="Business" onClick={this.busActive}>
-                Business
+            <p>Are you a business?</p> <br />
+            <select onChange={e => {
+                this.busActive(e.target.value);
+              }}>
+              <option type="text" value="No">
+                No
               </option>
-              <option type="text" value="Profile" onClick={this.busActive}>
-                General
+              <option type="text" value="Yes">
+                Yes
               </option>
             </select> <br />
             <p>What your Business Name</p> <br />
@@ -125,17 +128,31 @@ class SetupProfile extends Component {
             <input type="text" placeholder="State" onChange={e => updateBusState(e.target.value)} />
             <p>Your bio </p> <br />
             <input type="text" placeholder="about your business" onChange={e => updateBusBio(e.target.value)} />
+            <ImageUploader />
             <Link to="/user/this.props.user.name">
-              <button onClick={this.updateBusInfo} className="margin-btn">Save Info</button>
+              <button onClick={this.updateBusInfo} className="margin-btn">
+                Save Info
+              </button>
             </Link>
           </div> : <div>
-            {this.props.updateGenProfile()}
+            <p>Are you a business?</p>
+            <select onChange={e => {
+                this.busActive(e.target.value);
+              }}>
+              <option type="text" value="No">
+                No
+              </option>
+              <option type="text" value="Yes">
+                Yes
+              </option>
+            </select> <br />
             <p>What your Name</p> <br />
             <input type="text" placeholder="name" onChange={e => this.props.updateName(e.target.value)} />
             <p>What city are you located in?</p> <br />
             <input type="text" placeholder="City" onChange={e => this.props.updateCity(e.target.value)} />
             <p>What state are you located in?</p> <br />
             <input type="text" placeholder="State" onChange={e => this.props.updateState(e.target.value)} />
+            <ImageUploader />
             <button onClick={this.updateInfo}>Save Info</button>
           </div>}
       </div>;
@@ -143,7 +160,6 @@ class SetupProfile extends Component {
 }
 
 const mapStateToProps = state => state;
-
 
 export default withRouter(
   connect(mapStateToProps, {
@@ -163,4 +179,4 @@ export default withRouter(
     getUser,
     updateName
   })(SetupProfile)
-);;
+);

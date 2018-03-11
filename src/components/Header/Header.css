@@ -1,6 +1,7 @@
 .App-header {
-  background: #004B7F;
-  height: 8vh;
+  background: #444444;
+  width: 100vw;
+  height: 5.5vh;
   color: white;
   display: flex;
   justify-content: center;
@@ -10,12 +11,15 @@
   font-size: 1.5em;
   display: flex;
   flex-direction: row;
-  padding:25px 20px;
+  padding: 15px 0;
+}
+.logo{
+    color:#F16C43 ;
 }
 .search{
     display: flex;
     flex-direction: row;
-     padding:25px 20px;
+     padding: 15px 10px;
 }
 .search input{
     width: 15vw;
@@ -25,14 +29,17 @@
 
 }
 .search button{
-  background: #003F6B;
-  border-color: #004B7F;
+  background: #F16C43;
+  border-color: black;
     height: 2.6em;
 }
 .search button:hover{
     cursor: pointer;
   
-    color: #0096FF;
+    color: #444444;
+}
+.profileLink:hover{
+    color:#F16C43;
 }
 .nav{
     display: flex;
@@ -41,6 +48,7 @@
 }
 .nav Link{
 text-decoration: none;
+color: #F16C43;
 }
 .nav p{
      color: white;
@@ -56,5 +64,5 @@ text-decoration: none;
      flex-direction: flex-end;
 }
 .nav p:hover{
-    color: #0096FF;
+    color: #F16C43;
 }

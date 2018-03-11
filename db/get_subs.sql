@@ -1,4 +1,5 @@
-SELECT s.user_id, s.bus_id, b.name, b.jobtype
+SELECT s.*, u.name, b.jobtype
 FROM subscriptions s
-JOIN business b ON S.bus_id = b.id
+JOIN USERS u ON s.bus_id = u.id
+JOIN business b ON s.bus_id = b.id
 WHERE user_id = $1;

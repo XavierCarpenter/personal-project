@@ -1,9 +1,4 @@
--- INSERT INTO business
--- (authid, name, jobtype, phone, city, state, bio, email)
--- VALUES
--- ($1, $2, $3, $4, $5, $6, $7, $8);
-
 INSERT INTO business
-    (authid, name)
+    (id, jobtype, email, phone,  bio, address)
 VALUES
-    ($1, $2,);
+    ($1, $2, $3, $4, $5, $6);

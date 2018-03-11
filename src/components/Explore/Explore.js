@@ -56,24 +56,19 @@ class Explore extends Component {
             <h1 className="title">Web Developers</h1>
             {this.props.businesses && this.props.businesses.WebDeveloper.map(
                 (business, i) => {
-                  return (
-                    <div key={i} className="box">
+                  return <div key={i} className="box">
                       <div className="box-content">
-                        <Image
-                          src={business.profilepic}
-                          alt="profile"
-                          className="profilepic"
-                          height={240}
-                          width={240}
-                        />
+                        <Image src={business.profilepic} alt="profile" className="profilepic" height={240} width={240} />
                         <h3>{business.name}</h3>
-                        <h3> {business.state}</h3>
+                        <h3>
+                          {" "}
+                          {business.city},{business.state}
+                        </h3>
                         <Link to={`/business/${business.id}`} key={i}>
                           <p>View Portfolio</p>
                         </Link>
                       </div>
-                    </div>
-                  );
+                    </div>;
                 }
               )}
             <h1 className="title">Photographers</h1>
@@ -90,7 +85,7 @@ class Explore extends Component {
                           width={240}
                         />
                         <h3>{business.name}</h3>
-                        <h3> {business.state}</h3>
+                        <h3> {business.city},{business.state}</h3>
                         <Link to={`/business/${business.id}`} key={i}>
                           <p>View Portfolio</p>
                         </Link>
@@ -102,47 +97,37 @@ class Explore extends Component {
             <h1 className="title">Barbers</h1>
             {this.props.businesses && this.props.businesses.Barber.map(
                 (business, i) => {
-                  return (
-                    <div key={i} className="box">
+                  return <div key={i} className="box">
                       <div className="box-content">
-                        <Image
-                          src={business.profilepic}
-                          alt="profile"
-                          className="profilepic"
-                          height={240}
-                          width={240}
-                        />
+                        <Image src={business.profilepic} alt="profile" className="profilepic" height={240} width={240} />
                         <h3>{business.name}</h3>
-                        <h3> {business.state}</h3>
+                        <h3>
+                          {" "}
+                          {business.city},{business.state}
+                        </h3>
                         <Link to={`/business/${business.id}`} key={i}>
                           <p>View Portfolio</p>
                         </Link>
                       </div>
-                    </div>
-                  );
+                    </div>;
                 }
               )}
             <h1 className="title">Personal Trainers</h1>
             {this.props.businesses && this.props.businesses.PersonalTrainer.map(
                 (business, i) => {
-                  return (
-                    <div key={i} className="box">
+                  return <div key={i} className="box">
                       <div className="box-content">
-                        <Image
-                          src={business.profilepic}
-                          alt="profile"
-                          className="profilepic"
-                          height={240}
-                          width={240}
-                        />
+                        <Image src={business.profilepic} alt="profile" className="profilepic" height={240} width={240} />
                         <h3>{business.name}</h3>
-                        <h3> {business.state}</h3>
+                        <h3>
+                          {" "}
+                          {business.city},{business.state}
+                        </h3>
                         <Link to={`/business/${business.id}`} key={i}>
                           <p>View Portfolio</p>
                         </Link>
                       </div>
-                    </div>
-                  );
+                    </div>;
                 }
               )}
           </div> : <div>

@@ -1,3 +1,3 @@
 SELECT profilepic
-FROM business
+FROM users
 WHERE id = $1;
