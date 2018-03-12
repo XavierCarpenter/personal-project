@@ -19,5 +19,14 @@ module.exports = {
       .get_subs([req.params.id])
       .then(subs => res.status(200).json(subs))
       .catch(() => res.status(500).json());
+  },
+  deleteSub: (req, res, next) => {
+    const dbInstance = req.app.get("db");
+    const {params, busid} = req;
+
+    dbInstance
+    .delete_sub([params.id, busid])
+    .then(() => res.status(200).json())
+    .catch(() => res.status(500).json());
   }
 };

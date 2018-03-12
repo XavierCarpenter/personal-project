@@ -43,7 +43,7 @@ class Explore extends Component {
                <Image src={pic.profilepic} alt="profile" className="profilepic" height={240} width={240} />
              </div>;
          }) : null;
-         console.log(profileUrl)
+        
      
   
  

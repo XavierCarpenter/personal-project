@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./BusProfile.css";
+
 import Header from "../Header/Header";
 import { connect } from "react-redux";
 import BusPic from "../BusPic/BusPic";
@@ -21,7 +21,7 @@ import {
 } from "../../ducks/reducer";
 import { withRouter } from "react-router-dom";
 
-class BusProfile extends Component {
+class UserBus extends Component {
   constructor() {
     super();
     this.state = {
@@ -31,40 +31,26 @@ class BusProfile extends Component {
       selectedFile: null,
       profileUrl: ""
     };
-    this.addSub = this.addSub.bind(this);
     this.editActive = this.editActive.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
     
   }
   componentDidMount() {
     this.props.getUser();
-    axios.get(`/api/business/${this.props.match.params.id}`).then(results => {
+    axios.get(`/api/business/${this.props.user.id}`).then(results => {
       this.setState({ businessInfo: results.data });
     });
-    // In here you could go get the user data from this.props.match.params
-    // Or you could handle the redirect from the router.
-    // There's a few ways to handle this.
-    axios.get(`/api/hours/${this.props.match.params.id}`).then(results => {
+
+    axios.get(`/api/hours/${this.props.user.id}`).then(results => {
       this.setState({ busHours: results.data });
     });
     //get business profile pic
-    axios.get(`/api/buspic/${this.props.match.params.id}`).then(response => {
+    axios.get(`/api/buspic/${this.props.user.id}`).then(response => {
       console.log(response.data);
       this.setState({ profileUrl: response.data });
     });
   }
 
-  //user visiting buisness profile
-  addSub() {
-    // console.log("hits")
-    let userid = this.props.user.id;
-    let busid = this.state.businessInfo[0].id;
-
-    axios.post("api/subscriptions", { userid, busid }).then(response => {
-      // console.log(response.data);
-      let newSub = response.data;
-    });
-  }
 
   //updating buisness profile info
   editActive() {
@@ -78,7 +64,7 @@ class BusProfile extends Component {
       state: this.props.busState,
       profilepic: this.props.busPic
     };
-    axios.put(`/api/user/${this.props.match.params.id}`, body).then(results => {
+    axios.put(`/api/user/${this.props.user.id}`, body).then(results => {
       console.log("updated user table");
     });
 
@@ -90,7 +76,7 @@ class BusProfile extends Component {
       bio: this.props.busBio
     };
     axios
-      .put(`/api/business/${this.props.match.params.id}`, newinfo)
+      .put(`/api/business/${this.props.user.id}`, newinfo)
       .then(results => {
         console.log("updated business table");
       });
@@ -106,8 +92,7 @@ class BusProfile extends Component {
             <div className="about_strp">
               {this.state.profileUrl && <Image src={this.state.profileUrl[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />}
               <h2>{this.state.businessInfo[0].jobtype}</h2>
-              <button>Schedule Appointment</button>
-              <button onClick={() => this.addSub()}>Subscribe</button>
+              <button>Appointments</button>
             </div>
             <div className="about">
               <h1>{this.state.businessInfo[0].name}</h1>
@@ -169,5 +154,5 @@ export default withRouter(
     updateBusBio,
     updateBusAddress,
     updateBusEmail
-  })(BusProfile)
+  })(UserBus)
 );

@@ -120,7 +120,7 @@ app.get("/api/businesses/:type", bc.getType);
 app.get("/api/business/:id", bc.getOne);
 app.get("/api/hours/:id", bc.getHours);
 app.get("/api/buspic/:id", bc.profilePic);
-
+app.put("/api/business/:id", bc.updateBus)
 
 //create New Business
 app.put("/api/setbus/:id", uc.createBus);
@@ -129,11 +129,11 @@ app.post("/api/createbus/:id", bc.createBus)
 //subscribers
 app.post("/api/subscriptions", sc.createSub);
 app.get("/api/subscriptions/:id", sc.getSubs);
+app.delete("/api/deletesub/:id", sc.deleteSub);
 
 //update user info
-
 app.put("/api/user/:id", uc.updateInfo);
-app.put("/api/newuser/", uc.updateInfo);
+app.put("/api/newuser/:id", uc.newUser);
 
 app.get("/api/profilepic/:id", uc.profilePic);
 

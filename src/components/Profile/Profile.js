@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Profile.css";
 import axios from "axios";
 import Header from "../Header/Header";
-import BusProfile from "../BusProfile/BusProfile";
+import UserBus from "../UserBus/UserBus";
 import { connect } from "react-redux";
 import Image from "react-image-resizer";
 import {
@@ -29,6 +29,8 @@ class Profile extends Component {
     };
     this.editActive = this.editActive.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
+    this.deleteSub = this.deleteSub.bind(this);
+    
   }
   componentDidMount() {
     this.props.getBusinesses();
@@ -39,7 +41,7 @@ class Profile extends Component {
     axios
       .get(`/api/subscriptions/${this.props.user.id}`)
       .then(response => {
-        console.log(response.data);
+      
         this.setState({ subscriptions: response.data });
       })
       .catch(console.log);
@@ -51,6 +53,14 @@ class Profile extends Component {
   editActive() {
     this.setState({ editClick: true });
   }
+deleteSub(i){
+  let busid = i;
+  
+  // console.log(busid);
+  axios.delete(`/api/deletesub/${this.props.user.id}`, busid)
+  .then(response => alert("unsubscribed"));
+  
+}
 
   updateInfo() {
     let body = {
@@ -68,8 +78,7 @@ class Profile extends Component {
   }
 
   render() {
-    console.log(this.state.subscriptions);
-
+  
     // let profileUrl = this.state.profileUrl;
     //  profileUrl.map((pic, i) =>{
     //     return <div key={i}>
@@ -77,47 +86,74 @@ class Profile extends Component {
     // }
 
     // )
-
+console.log(this.state.subscriptions)
     return <div className="profile_body">
-        <Header />
+        {this.props.user.profiletype === "general" ? <div>
+            <Header />
+            <div>
+              {this.props.user.name}
+              {this.state.profileUrl && this.state.profileUrl.map(
+                  (pic, i) => {
+                    return (
+                      <div key={i}>
+                        <Image
+                          src={pic.profilepic}
+                          alt="profile"
+                          className="profilepic"
+                          height={240}
+                          width={240}
+                        />
+                      </div>
+                    );
+                  }
+                )}
+              <hr />
 
-        <div>
-          {this.props.user.name}
-          {this.state.profileUrl && this.state.profileUrl.map((pic, i) => {
-              return <div key={i}>
-                  <Image src={pic.profilepic} alt="profile" className="profilepic" height={240} width={240} />
-                </div>;
-            })}
-            <hr></hr>
-        
-          <div className="clicks">
-            <h2>Appointments</h2>
-            <h2>Subscriptions</h2>
-
-            {this.state.subscriptions && this.state.subscriptions.map(
-                (obj, i) => {
-                  return (
-                    <div key={i}>
-                      <p>
-                        {obj.name} {obj.jobtype}
-                      </p>
-                    </div>
-                  );
-                }
-              )}
-            <h2>Order History</h2>
-          </div>
-          <div className="editProfile">
-            <button onClick={this.editActive}>Edit Profile</button>
-            {this.state.editClick === true ? <div>
-                <input type="text" placeholder={this.props.user.name} onChange={e => this.props.user.name(e.target.value)} />
-                <input type="text" placeholder="City" onChange={e => this.props.updateCity(e.target.value)} />
-                <input type="text" placeholder="State" onChange={e => this.props.updateState(e.target.value)} />
-                <button onClick={this.updateInfo}>Submit</button>
-                <ImageUploader />
-              </div> : null}
-          </div>
-        </div>
+              <div className="clicks">
+                <h2>Appointments</h2>
+                <h2 onClick={this.subActive}>Subscriptions</h2>
+                {this.state.subscriptions && this.state.subscriptions.map(
+                    (obj, i) => {
+                      console.log(obj);
+                      return (
+                        <div
+                          key={i}
+                          style={{ height: "auto", width: "auto" }}
+                        >
+                          <img
+                            src={obj.profilepic}
+                            alt="buspic"
+                            className="profilepic"
+                            heigth={50}
+                            width={50}
+                          />
+                          <p>
+                            {obj.name} {obj.jobtype}
+                            <span
+                              className="DeleteSub"
+                              onClick={() => this.deleteSub(obj.bus_id)}
+                            >
+                              X
+                            </span>
+                          </p>
+                        </div>
+                      );
+                    }
+                  )}
+                <h2>Order History</h2>
+              </div>
+              <div className="editProfile">
+                <button onClick={this.editActive}>Edit Profile</button>
+                {this.state.editClick === true ? <div>
+                    <input type="text" placeholder={this.props.user.name} onChange={e => this.props.user.name(e.target.value)} />
+                    <input type="text" placeholder="City" onChange={e => this.props.updateCity(e.target.value)} />
+                    <input type="text" placeholder="State" onChange={e => this.props.updateState(e.target.value)} />
+                    <button onClick={this.updateInfo}>Submit</button>
+                    <ImageUploader />
+                  </div> : null}
+              </div>
+            </div>
+          </div> : <UserBus />}
       </div>;
   }
 }

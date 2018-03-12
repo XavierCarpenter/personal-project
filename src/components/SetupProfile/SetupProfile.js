@@ -37,12 +37,6 @@ class SetupProfile extends Component {
   }
   //update profileType when user select yes
   busActive() {
-    let profileType = "business";
-    axios
-      .put(`/api/setbus/${this.props.user.id}`, profileType)
-      .then(results => {
-        this.props.user.push;
-      });
     this.setState({ busClick: true });
   }
 
@@ -50,10 +44,11 @@ class SetupProfile extends Component {
     let body = {
       name: this.props.user.name,
       city: this.props.city,
-      state: this.props.state
+      state: this.props.state,
+      profileType: "general"
     };
 
-    axios.put(`/api/newuser/`, body).then(results => {
+    axios.put(`/api/newuser/${this.props.user.id}`, body).then(results => {
       this.props.user.push;
     });
     this.setState({ editClick: false });
@@ -61,6 +56,19 @@ class SetupProfile extends Component {
   }
   updateBusInfo() {
     console.log(this.props.user);
+    //update users table
+    let body = {
+      name: this.props.busName,
+      city: this.props.busCity,
+      state: this.props.busState,
+      profilepic: this.props.profilePic,
+      profileType: "business"
+    };
+
+    axios.put(`/api/newuser/${this.props.user.id}`, body).then(results => {
+      this.props.user.push;
+    });
+    //create new business in business table
     let info = {
       busid: this.props.user.id,
       bustype: this.props.busType,
@@ -73,16 +81,6 @@ class SetupProfile extends Component {
       this.props.user.push;
     });
 
-    let body = {
-      name: this.props.busName,
-      city: this.props.busCity,
-      state: this.props.busState,
-      profilepic: this.props.profilePic
-    };
-
-    axios.put(`/api/user/${this.props.user.id}`, body).then(results => {
-      this.props.user.push;
-    });
     this.setState({ editClick: false });
     alert("Profile Created");
   }
@@ -99,63 +97,121 @@ class SetupProfile extends Component {
       updateBusAddress
     } = this.props;
 
-    return <div className="parent-div">
-        {this.state.busClick == true ? <div className="vert-align">
+    return (
+      <div className="parent-div">
+        {this.state.busClick == true ? (
+          <div className="vert-align">
             <p>Are you a business?</p> <br />
-            <select onChange={e => {
+            <select
+              onChange={e => {
                 this.busActive(e.target.value);
-              }}>
+              }}
+            >
               <option type="text" value="No">
                 No
               </option>
               <option type="text" value="Yes">
                 Yes
               </option>
-            </select> <br />
+            </select>{" "}
+            <br />
             <p>What your Business Name</p> <br />
-            <input type="text" placeholder="Larry's Haircut's" onChange={e => updateBusName(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Larry's Haircut's"
+              onChange={e => updateBusName(e.target.value)}
+            />
             <p>Business Type?</p> <br />
-            <input type="text" placeholder="Web Developer" onChange={e => updateBusType(e.target.value)} />
+            <input
+              type="text"
+              placeholder="Web Developer"
+              onChange={e => updateBusType(e.target.value)}
+            />
             <p>What's your email?</p> <br />
-            <input type="email" placeholder="youremail@email.com" onChange={e => updateBusEmail(e.target.value)} />
+            <input
+              type="email"
+              placeholder="youremail@email.com"
+              onChange={e => updateBusEmail(e.target.value)}
+            />
             <p>What's your phone number?</p> <br />
-            <input type="text" placeholder="1112223333" onChange={e => updateBusPhone(e.target.value)} />
+            <input
+              type="text"
+              placeholder="1112223333"
+              onChange={e => updateBusPhone(e.target.value)}
+            />
             <p>What's your address?</p> <br />
-            <input type="text" placeholder="address" onChange={e => updateBusAddress(e.target.value)} />
+            <input
+              type="text"
+              placeholder="address"
+              onChange={e => updateBusAddress(e.target.value)}
+            />
             <p>What city are you located in?</p> <br />
-            <input type="text" placeholder="City" onChange={e => updateBusCity(e.target.value)} />
+            <input
+              type="text"
+              placeholder="City"
+              onChange={e => updateBusCity(e.target.value)}
+            />
             <p>What state are you located in?</p> <br />
-            <input type="text" placeholder="State" onChange={e => updateBusState(e.target.value)} />
+            <input
+              type="text"
+              placeholder="State"
+              onChange={e => updateBusState(e.target.value)}
+            />
             <p>Your bio </p> <br />
-            <input type="text" placeholder="about your business" onChange={e => updateBusBio(e.target.value)} />
+            <input
+              type="text"
+              placeholder="about your business"
+              onChange={e => updateBusBio(e.target.value)}
+            />
             <ImageUploader />
             <Link to="/user/this.props.user.name">
               <button onClick={this.updateBusInfo} className="margin-btn">
                 Save Info
               </button>
             </Link>
-          </div> : <div>
+          </div>
+        ) : (
+          <div>
             <p>Are you a business?</p>
-            <select onChange={e => {
+            <select
+              onChange={e => {
                 this.busActive(e.target.value);
-              }}>
+              }}
+            >
               <option type="text" value="No">
                 No
               </option>
               <option type="text" value="Yes">
                 Yes
               </option>
-            </select> <br />
+            </select>{" "}
+            <br />
             <p>What your Name</p> <br />
-            <input type="text" placeholder="name" onChange={e => this.props.updateName(e.target.value)} />
+            <input
+              type="text"
+              placeholder="name"
+              onChange={e => this.props.updateName(e.target.value)}
+            />
             <p>What city are you located in?</p> <br />
-            <input type="text" placeholder="City" onChange={e => this.props.updateCity(e.target.value)} />
+            <input
+              type="text"
+              placeholder="City"
+              onChange={e => this.props.updateCity(e.target.value)}
+            />
             <p>What state are you located in?</p> <br />
-            <input type="text" placeholder="State" onChange={e => this.props.updateState(e.target.value)} />
+            <input
+              type="text"
+              placeholder="State"
+              onChange={e => this.props.updateState(e.target.value)}
+            />
             <ImageUploader />
+            <Link to="/user/this.props.user.name">
             <button onClick={this.updateInfo}>Save Info</button>
-          </div>}
-      </div>;
+            </Link>
+          </div>
+        )}
+      </div>
+    );
   }
 }
 

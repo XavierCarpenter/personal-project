@@ -36,7 +36,7 @@ class ImageUploader extends Component {
       .put(this.state.file);
     uploadTask.on(
       "state_changed",
-      snapshot => {
+      (snapshot) => {
         console.log(snapshot);
       },
       error => {},

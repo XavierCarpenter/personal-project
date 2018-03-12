@@ -1,4 +1,5 @@
 module.exports = {
+  //get all businesses
   getAll: (req, res, next) => {
     const dbInstance = req.app.get("db");
 
@@ -12,10 +13,12 @@ module.exports = {
           if (!obj[businesses[i].jobtype]) obj[businesses[i].jobtype] = [];
           obj[businesses[i].jobtype].push(businesses[i]);
         }
+     
         res.status(200).json(obj);
       })
       .catch(() => res.status(500).json());
   },
+  // get a specific type of business
   getType: (req, res, next) => {
     const dbInstance = req.app.get("db");
 
@@ -24,6 +27,7 @@ module.exports = {
       .then(businesses => res.status(200).json(businesses))
       .catch(() => res.status(500).json());
   },
+  //get one business
   getOne: (req, res, next) => {
     const dbInstance = req.app.get("db");
     const { params } = req;
@@ -33,6 +37,7 @@ module.exports = {
       .then(business => res.status(200).json(business))
       .catch(() => res.status(500).json());
   },
+  //get the hours of operation
   getHours: (req, res, next) => {
     const dbInstance = req.app.get("db");
     const { params } = req;
@@ -42,6 +47,7 @@ module.exports = {
       .then(hours => res.status(200).json(hours))
       .catch(() => res.status(500).json());
   },
+  //get business profile pic
   profilePic: (req, res, next) => {
     const dbInstance = req.app.get("db");
     const { params } = req;
@@ -51,7 +57,27 @@ module.exports = {
       .then(pic => res.status(200).json(pic))
       .catch(() => res.status(500).json());
   },
+  //update info
+  updateBus: (req, res, next) => {
+    const dbInstance = req.app.get("db");
+    const { params, body } = req;
+    // console.log(params, body);
+
+    dbInstance
+      .update_bus([
+        params.id,
+       body.jobtype,
+       body.email,
+       body.phone,
+       body.address,
+       body.bio
+      ])
+      .then(() => res.status(200).json())
+      .catch(() => res.status(500).json());
+  },
+  //create new business
   createBus: (req, res, next) => {
+    // console.log("hit controller");
     const dbInstance = req.app.get("db");
     const { busid, bustype, email, phone, bio, address } = req.body;
     // console.log(req.body);
