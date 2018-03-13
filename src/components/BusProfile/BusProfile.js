@@ -4,6 +4,8 @@ import "./BusProfile.css";
 import Header from "../Header/Header";
 import { connect } from "react-redux";
 import BusPic from "../BusPic/BusPic";
+import Calendar from "../Calendar/Calendar";
+import Clock from "../Clock/Clock";
 import Image from "react-image-resizer";
 
 import {
@@ -128,6 +130,8 @@ class BusProfile extends Component {
                     <li>Sat: {this.state.busHours[0].sat}</li>
                   </ul>
                 </div>}
+                <Calendar />
+                <Clock />
               <button onClick={this.editActive}>Edit Profile</button>
               {this.state.editClick === true ? <div>
                   <h2>Name:</h2>
