@@ -9,6 +9,9 @@ const Auth0Strategy = require("passport-auth0");
 const massive = require("massive");
 const path = require("path");
 
+
+
+
 // const checkForSession = require(`${__dirname}/middlewares/checkForSession`);
 const bc = require(`${__dirname}/controllers/business_controller`);
 const sc = require(`${__dirname}/controllers/sub_controller`);
@@ -18,6 +21,7 @@ const pc = require(`${__dirname}/controllers/profile_controller`);
 const port = 3001;
 
 const app = express();
+app.use(express.static(`${__dirname}/../build`));
 
 const {
   CONNECTION_STRING,
@@ -88,17 +92,17 @@ passport.deserializeUser((user, done) => done(null, user));
 app.get(
   "/login",
   passport.authenticate("auth0", {
-    failureRedirect: "http://locahost:3000/#/login"
+    failureRedirect: "http://locahost:3001/#/login"
   }),
   (req, res) => {
     // console.log(req.user);
     //if user don't have account
     if (!req.user.city) {
       //send to setup
-      res.redirect(`http://localhost:3000/#/setup/`);
+      res.redirect(`http://localhost:3001/#/setup/`);
     } else {
       //send to profile
-      res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
+      res.redirect(`http://localhost:3001/#/user/${req.user.name}`);
     }
   }
 );
@@ -110,7 +114,7 @@ app.get("/api/me", (req, res) => {
 
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("http://localhost:3000/#/");
+    res.redirect("http://localhost:3001/#/");
   });
 });
 
@@ -161,6 +165,11 @@ app.get("/api/profilepic/:id", uc.profilePic);
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(__dirname, "../build/index.html"));
 // });
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Listening on Port: ${port}`);
