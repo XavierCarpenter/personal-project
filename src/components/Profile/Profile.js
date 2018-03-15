@@ -25,9 +25,13 @@ class Profile extends Component {
       editClick: false,
       selectedFile: null,
       profileUrl: "",
-      appointments: ""
+      appointments: "",
+      subClick: false,
+      appClick: true
     };
     this.editActive = this.editActive.bind(this);
+    this.subActive = this.subActive.bind(this);
+    this.appActive = this.appActive.bind(this);    
     this.updateInfo = this.updateInfo.bind(this);
     this.deleteSub = this.deleteSub.bind(this);
   }
@@ -54,6 +58,12 @@ class Profile extends Component {
   }
   editActive() {
     this.setState({ editClick: true });
+  }
+  subActive() {
+    this.setState({ subClick: true, appClick: false });
+  }
+  appActive() {
+    this.setState({ appClick: true, subClick: false });
   }
   deleteSub(i) {
     let busid = i;
@@ -93,88 +103,125 @@ class Profile extends Component {
           </tr>
         );
       });
-      let subNum = this.state.subscriptions.length;
-      let apptNum = this.state.appointments.length;
+    const style = {
+      image: {
+        border: "3px solid #444444",
+        background: "#444444",
+        position: "absolute",
+        display: "flex",
+        margin: "8% 0 0 8%",
+        // padding: "0 0 -10px 0",
+        top: "10%"
+      }
+    };
+    let subNum = this.state.subscriptions.length;
+    let apptNum = this.state.appointments.length;
     console.log(this.state.appointments);
-    return <div className="profile_body">
-        {this.props.user.profiletype === "general" ? <div>
+    return (
+      <div className="profile_body">
+        {this.props.user.profiletype === "general" ? (
+          <div className="pic_container">
             <Header />
-            <div>
-              <h1>{this.props.user.name}</h1>
-              <p>{this.props.user.city},  {this.props.user.state}</p>
-              {this.state.profileUrl && this.state.profileUrl.map(
-                  (pic, i) => {
-                    return (
-                      <div key={i}>
-                        <Image
-                          src={pic.profilepic}
-                          alt="profile"
-                          className="profilepic"
-                          height={240}
-                          width={240}
-                        />
-                      </div>
-                    );
-                  }
-                )}
-              <hr />
-
-              <div className="clicks">
-                <h2>Appointments {apptNum}</h2>
-                <div>
-                  <table>
-                    <caption>Your Appointments</caption>
-                    <tr>
-                      <th>Free Agent</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                    </tr>
-                    {tableData}
-                  </table>
-                </div>;
-                <h2 onClick={this.subActive}>Subscriptions {subNum}</h2>
-                {this.state.subscriptions && this.state.subscriptions.map(
-                    (obj, i) => {
-                      return (
-                        <div
-                          key={i}
-                          style={{ height: "auto", width: "auto" }}
-                        >
-                          <img
-                            src={obj.profilepic}
-                            alt="buspic"
-                            className="profilepic"
-                            heigth={50}
-                            width={50}
-                          />
-                          <p>
-                            {obj.name} {obj.jobtype}
-                            <span
-                              className="DeleteSub"
-                              onClick={() => this.deleteSub(obj.bus_id)}
-                            >
-                              X
-                            </span>
-                          </p>
-                        </div>
-                      );
-                    }
-                  )}
-                <h2>Order History</h2>
-              </div>
-              <div className="editProfile">
-                <button onClick={this.editActive}>Edit Profile</button>
-                {this.state.editClick === true ? <div>
-                    <input type="text" placeholder={this.props.user.name} onChange={e => this.props.user.name(e.target.value)} />
-                    <input type="text" placeholder="City" onChange={e => this.props.updateCity(e.target.value)} />
-                    <input type="text" placeholder="State" onChange={e => this.props.updateState(e.target.value)} />
-                    <button onClick={this.updateInfo}>Submit</button>
-                    <ImageUploader />
-                  </div> : null}
+            <div className="about_container">
+              {this.state.profileUrl &&
+                this.state.profileUrl.map((pic, i) => {
+                  return (
+                    <div key={i}>
+                      <Image
+                        src={pic.profilepic}
+                        alt="profile"
+                        style={style.image}
+                        height={240}
+                        width={240}
+                      />
+                    </div>
+                  );
+                })}
+              <div className="about_you">
+                <h1>{this.props.user.name}</h1>
+                <p>
+                  {this.props.user.city}, {this.props.user.state}
+                </p>
               </div>
             </div>
-          </div> : <UserBus />}
-      </div>;
+            <hr />
+
+            <div className="main_content">
+              <h2 className="clicks" onClick={this.appActive}>
+                Appointments {apptNum}
+              </h2>
+              {this.state.appClick === true ?
+              <div className="table_container">
+                <table>
+                  <caption>Your Appointments</caption>
+                  <tr>
+                    <th>Free Agent</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                  </tr>
+                  {tableData}
+                </table>
+              </div> : null}
+              <h2 className="clicks" onClick={this.subActive}>
+                Subscriptions {subNum}
+              </h2>
+              {this.state.subClick === true ?
+              <div>
+              {this.state.subscriptions &&
+                this.state.subscriptions.map((obj, i) => {
+                  return (
+                    <div key={i} style={{ height: "auto", width: "auto" }}>
+                      <img
+                        src={obj.profilepic}
+                        alt="buspic"
+                        className="profilepic"
+                        heigth={50}
+                        width={50}
+                      />
+                      <p>
+                        {obj.name} {obj.jobtype}
+                        <span
+                          className="DeleteSub"
+                          onClick={() => this.deleteSub(obj.bus_id)}
+                        >
+                          X
+                        </span>
+                      </p>
+                    </div>
+                  );
+                })} </div>: null}
+              <h2 className="clicks">Order History</h2>
+              <div className="editProfile">
+                <button onClick={this.editActive}>Edit Profile</button>
+              </div>
+              {this.state.editClick === true ? (
+                <div>
+                  <input
+                    type="text"
+                    placeholder={this.props.user.name}
+                    onChange={e => this.props.user.name(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="City"
+                    onChange={e => this.props.updateCity(e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="State"
+                    onChange={e => this.props.updateState(e.target.value)}
+                  />
+                  <button onClick={this.updateInfo}>Submit</button>
+                  <ImageUploader />
+                </div>
+              ) : null}
+            </div>
+          </div>
+        ) : (
+          <UserBus />
+        )}
+      </div>
+    );
   }
 }
 

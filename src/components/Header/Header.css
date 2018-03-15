@@ -1,5 +1,5 @@
 .App-header {
-  background: #444444;
+  background: #31354A;
   width: 100vw;
   height: 5.5vh;
   color: white;
@@ -14,7 +14,7 @@
   padding: 15px 0;
 }
 .logo{
-    color:#F16C43 ;
+    color:#F46060 ;
 }
 .search{
     display: flex;
@@ -29,7 +29,7 @@
 
 }
 .search button{
-  background: #F16C43;
+  background: #F46060;
   border-color: black;
     height: 2.6em;
 }
@@ -39,7 +39,7 @@
     color: #444444;
 }
 .profileLink:hover{
-    color:#F16C43;
+    color:#F46060;
 }
 .nav{
     display: flex;
@@ -48,7 +48,7 @@
 }
 .nav Link{
 text-decoration: none;
-color: #F16C43;
+color: #F46060;
 }
 .nav p{
      color: white;
@@ -64,5 +64,5 @@ color: #F16C43;
      flex-direction: flex-end;
 }
 .nav p:hover{
-    color: #F16C43;
+    color: #F46060;
 }
