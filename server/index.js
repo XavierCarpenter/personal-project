@@ -9,16 +9,13 @@ const Auth0Strategy = require("passport-auth0");
 const massive = require("massive");
 const path = require("path");
 
-
-
-
 // const checkForSession = require(`${__dirname}/middlewares/checkForSession`);
 const bc = require(`${__dirname}/controllers/business_controller`);
 const sc = require(`${__dirname}/controllers/sub_controller`);
 const uc = require(`${__dirname}/controllers/user_controller`);
 const pc = require(`${__dirname}/controllers/profile_controller`);
 
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 const app = express();
 app.use(express.static(`${__dirname}/../build`));
@@ -71,13 +68,12 @@ passport.use(
         .get("db")
         .getUserByAuthId(profile.id)
         .then(response => {
-      
           if (!response[0]) {
             app
               .get("db")
               .createUserByAuthId([profile.id, profile.displayName])
               .then(created => done(null, created[0]));
-            } else {
+          } else {
             return done(null, response[0]);
           }
         });
@@ -124,11 +120,11 @@ app.get("/api/businesses/:type", bc.getType);
 app.get("/api/business/:id", bc.getOne);
 app.get("/api/hours/:id", bc.getHours);
 app.get("/api/buspic/:id", bc.profilePic);
-app.put("/api/business/:id", bc.updateBus)
+app.put("/api/business/:id", bc.updateBus);
 
 //create New Business
 app.put("/api/setbus/:id", uc.createBus);
-app.post("/api/createbus/:id", bc.createBus)
+app.post("/api/createbus/:id", bc.createBus);
 
 //subscribers
 app.post("/api/subscriptions", sc.createSub);
@@ -139,7 +135,6 @@ app.delete("/api/deletesub/:id", sc.deleteSub);
 app.post("/api/appointment/:id", uc.newAppt);
 app.get("/api/appointments/:id", uc.getAppt);
 app.get("/api/bappointments/:id", uc.getBAppt);
-
 
 //update user info
 app.put("/api/user/:id", uc.updateInfo);
@@ -166,9 +161,8 @@ app.get("/api/profilepic/:id", uc.profilePic);
 //   res.sendFile(path.join(__dirname, "../build/index.html"));
 // });
 
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 app.listen(port, () => {
