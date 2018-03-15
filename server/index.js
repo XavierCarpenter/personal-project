@@ -131,6 +131,12 @@ app.post("/api/subscriptions", sc.createSub);
 app.get("/api/subscriptions/:id", sc.getSubs);
 app.delete("/api/deletesub/:id", sc.deleteSub);
 
+//appointments
+app.post("/api/appointment/:id", uc.newAppt);
+app.get("/api/appointments/:id", uc.getAppt);
+app.get("/api/bappointments/:id", uc.getBAppt);
+
+
 //update user info
 app.put("/api/user/:id", uc.updateInfo);
 app.put("/api/newuser/:id", uc.newUser);

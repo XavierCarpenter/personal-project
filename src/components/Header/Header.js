@@ -13,7 +13,7 @@ class Header extends Component {
     this.props.getUser();
   }
   render() {
-    console.log(this.props.user)
+  
     return <div>
         {this.props.user.name ? <div>
             <header className="App-header">

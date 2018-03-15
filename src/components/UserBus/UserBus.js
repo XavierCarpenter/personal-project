@@ -29,7 +29,9 @@ class UserBus extends Component {
       busHours: [],
       editClick: false,
       selectedFile: null,
-      profileUrl: ""
+      profileUrl: "", 
+      appointments: "",
+      subscriptions: "",
     };
     this.editActive = this.editActive.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
@@ -49,6 +51,18 @@ class UserBus extends Component {
       console.log(response.data);
       this.setState({ profileUrl: response.data });
     });
+      axios
+        .get(`/api/bappointments/${this.props.user.id}`)
+        .then(response => {
+          console.log(response.data);
+          this.setState({ appointments: response.data });
+        });
+         axios
+           .get(`/api/subscriptions/${this.props.user.id}`)
+           .then(response => {
+             this.setState({ subscriptions: response.data });
+           })
+           .catch(console.log);
   }
 
 
@@ -84,15 +98,31 @@ class UserBus extends Component {
     alert("Profile Updated");
   }
   render() {
+    let tableData = this.state.appointments && this.state.appointments.map(
+        (obj, i) => {
+          return (
+            <tr key={i}>
+              <td>
+                {obj.name}
+              </td>
+              <td>{obj.date}</td>
+              <td>{obj.time}</td>
+            </tr>
+          );
+        }
+      );
+      let subNum = this.state.subscriptions.length;
+      let apptNum = this.state.appointments.length;
     console.log(this.props.busType);
     console.log(this.props.busEmail);
     return <div className="main-container">
         <Header />
+        <h1>{this.props.user.name}</h1>
+        <p>{this.props.user.city}, {this.props.user.state}</p>
         {this.state.businessInfo.length > 0 && <div>
             <div className="about_strp">
               {this.state.profileUrl && <Image src={this.state.profileUrl[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />}
               <h2>{this.state.businessInfo[0].jobtype}</h2>
-              <button>Appointments</button>
             </div>
             <div className="about">
               <h1>{this.state.businessInfo[0].name}</h1>
@@ -113,6 +143,19 @@ class UserBus extends Component {
                     <li>Sat: {this.state.busHours[0].sat}</li>
                   </ul>
                 </div>}
+              <h1>Subscribers {subNum}</h1>
+              <h2>Appointments {apptNum}</h2>
+              <div>
+                <table>
+                  <caption>Your Appointments</caption>
+                  <tr>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                  </tr>
+                  {tableData}
+                </table>
+              </div>;
               <button onClick={this.editActive}>Edit Profile</button>
               {this.state.editClick === true ? <div>
                   <h2>Name:</h2>

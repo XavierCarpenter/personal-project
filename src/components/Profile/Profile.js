@@ -25,12 +25,11 @@ class Profile extends Component {
       editClick: false,
       selectedFile: null,
       profileUrl: "",
-      appointments: 0,
+      appointments: ""
     };
     this.editActive = this.editActive.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
     this.deleteSub = this.deleteSub.bind(this);
-    
   }
   componentDidMount() {
     this.props.getBusinesses();
@@ -41,7 +40,6 @@ class Profile extends Component {
     axios
       .get(`/api/subscriptions/${this.props.user.id}`)
       .then(response => {
-      
         this.setState({ subscriptions: response.data });
       })
       .catch(console.log);
@@ -49,18 +47,22 @@ class Profile extends Component {
     axios.get(`/api/profilepic/${this.props.user.id}`).then(response => {
       this.setState({ profileUrl: response.data });
     });
+    axios.get(`/api/appointments/${this.props.user.id}`).then(response => {
+      console.log(response.data);
+      this.setState({ appointments: response.data });
+    });
   }
   editActive() {
     this.setState({ editClick: true });
   }
-deleteSub(i){
-  let busid = i;
-  
-  // console.log(busid);
-  axios.delete(`/api/deletesub/${this.props.user.id}`, busid)
-  .then(response => alert("unsubscribed"));
-  
-}
+  deleteSub(i) {
+    let busid = i;
+
+    // console.log(busid);
+    axios
+      .delete(`/api/deletesub/${this.props.user.id}`, busid)
+      .then(response => alert("unsubscribed"));
+  }
 
   updateInfo() {
     let body = {
@@ -78,20 +80,28 @@ deleteSub(i){
   }
 
   render() {
-  
-    // let profileUrl = this.state.profileUrl;
-    //  profileUrl.map((pic, i) =>{
-    //     return <div key={i}>
-    //     </div>
-    // }
-
-    // )
-console.log(this.state.subscriptions)
+    let tableData =
+      this.state.appointments &&
+      this.state.appointments.map((obj, i) => {
+        return (
+          <tr key={i}>
+            <td>
+              {obj.name}({obj.jobtype})
+            </td>
+            <td>{obj.date}</td>
+            <td>{obj.time}</td>
+          </tr>
+        );
+      });
+      let subNum = this.state.subscriptions.length;
+      let apptNum = this.state.appointments.length;
+    console.log(this.state.appointments);
     return <div className="profile_body">
         {this.props.user.profiletype === "general" ? <div>
             <Header />
             <div>
-              {this.props.user.name}
+              <h1>{this.props.user.name}</h1>
+              <p>{this.props.user.city},  {this.props.user.state}</p>
               {this.state.profileUrl && this.state.profileUrl.map(
                   (pic, i) => {
                     return (
@@ -110,11 +120,21 @@ console.log(this.state.subscriptions)
               <hr />
 
               <div className="clicks">
-                <h2>Appointments</h2>
-                <h2 onClick={this.subActive}>Subscriptions</h2>
+                <h2>Appointments {apptNum}</h2>
+                <div>
+                  <table>
+                    <caption>Your Appointments</caption>
+                    <tr>
+                      <th>Free Agent</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                    </tr>
+                    {tableData}
+                  </table>
+                </div>;
+                <h2 onClick={this.subActive}>Subscriptions {subNum}</h2>
                 {this.state.subscriptions && this.state.subscriptions.map(
                     (obj, i) => {
-                      console.log(obj);
                       return (
                         <div
                           key={i}
