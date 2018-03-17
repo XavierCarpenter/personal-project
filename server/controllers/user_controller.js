@@ -60,7 +60,6 @@ module.exports = {
       .catch(() => res.status(500).json());
   },
   getAppt: (req, res, next) => {
-    console.log("hit controller");
     const dbInstance = req.app.get("db");
     const { params } = req;
 
@@ -70,13 +69,32 @@ module.exports = {
       .catch(() => res.status(500).json());
   },
   getBAppt: (req, res, next) => {
-    console.log("hit controller");
     const dbInstance = req.app.get("db");
     const { params } = req;
 
     dbInstance
       .get_bappt([params.id])
       .then(appt => res.status(200).json(appt))
+      .catch(() => res.status(500).json());
+  },
+  deleteAppt: (req, res, next) => {
+    const dbInstance = req.app.get("db");
+    const { params, body } = req;
+    // console.log(params.id, params.id2);
+
+    dbInstance
+      .delete_appt([params.id, params.id2])
+      .then(() => res.status(200).json())
+      .catch(() => res.status(500).json());
+  },
+  deleteBAppt: (req, res, next) => {
+    const dbInstance = req.app.get("db");
+    const { params, body } = req;
+    console.log(params.id, params.id2);
+
+    dbInstance
+      .delete_bappt([params.id, params.id2])
+      .then(() => res.status(200).json())
       .catch(() => res.status(500).json());
   }
 };

@@ -9,8 +9,8 @@ class ImageUploader extends Component {
     super(props);
     this.state = { 
         file: "", 
-        imagePreview: "" ,
-        profileUrl: "",
+        imagePreview: "" 
+        // profileUrl: "",
 
     };
 
@@ -41,6 +41,7 @@ class ImageUploader extends Component {
       },
       error => {},
       success => {
+        console.log(uploadTask.snapshot.downloadURLUrl);
         this.props.updateProfilePic(uploadTask.snapshot.downloadURL);
       }
     );

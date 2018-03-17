@@ -34,6 +34,8 @@ class Profile extends Component {
     this.appActive = this.appActive.bind(this);    
     this.updateInfo = this.updateInfo.bind(this);
     this.deleteSub = this.deleteSub.bind(this);
+    this.cancelAppt = this.cancelAppt.bind(this);
+    
   }
   componentDidMount() {
     this.props.getBusinesses();
@@ -70,8 +72,16 @@ class Profile extends Component {
 
     // console.log(busid);
     axios
-      .delete(`/api/deletesub/${this.props.user.id}`, busid)
+      .delete(`/api/deletesub/${this.props.user.id}/${i}`)
       .then(response => alert("unsubscribed"));
+  }
+  cancelAppt(i){
+    console.log(i);
+ 
+    console.log("USED ID", this.props.user.id)
+    axios
+      .delete(`/api/deleteappt/${this.props.user.id}/${i}`)
+      .then(response => alert("Appointment Canceled"));
   }
 
   updateInfo() {
@@ -90,9 +100,11 @@ class Profile extends Component {
   }
 
   render() {
+    console.log(this.state.profileUrl)
     let tableData =
       this.state.appointments &&
       this.state.appointments.map((obj, i) => {
+        console.log(obj)
         return (
           <tr key={i}>
             <td>
@@ -100,9 +112,35 @@ class Profile extends Component {
             </td>
             <td>{obj.date}</td>
             <td>{obj.time}</td>
+            <td onClick={() => this.cancelAppt(obj.bus_id)} className="cancelAppt">Cancel</td>
           </tr>
         );
       });
+
+      let subData = this.state.subscriptions && this.state.subscriptions.map(
+          (obj, i) => {
+            return (
+              <div key={i} style={{ height: "auto", width: "auto" }}>
+                <img
+                  src={obj.profilepic}
+                  alt="buspic"
+                  className="profilepic"
+                  heigth={50}
+                  width={50}
+                />
+                <p>
+                  {obj.name} {obj.jobtype}
+                  <span
+                    className="DeleteSub"
+                    onClick={() => this.deleteSub(obj.bus_id)}
+                  >
+                    X
+                  </span>
+                </p>
+              </div>
+            );
+          }
+        );
     const style = {
       image: {
         border: "3px solid #444444",
@@ -116,7 +154,7 @@ class Profile extends Component {
     };
     let subNum = this.state.subscriptions.length;
     let apptNum = this.state.appointments.length;
-    console.log(this.state.appointments);
+
     return (
       <div className="profile_body">
         {this.props.user.profiletype === "general" ? (
@@ -158,6 +196,7 @@ class Profile extends Component {
                     <th>Free Agent</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Cancel</th>
                   </tr>
                   {tableData}
                 </table>

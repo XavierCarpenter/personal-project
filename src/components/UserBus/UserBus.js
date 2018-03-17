@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Header from "../Header/Header";
 import { connect } from "react-redux";
-import BusPic from "../BusPic/BusPic";
+import ImageUploader from "../ImageUploader/ImageUploader";
 import Image from "react-image-resizer";
 
 import {
@@ -29,13 +29,14 @@ class UserBus extends Component {
       busHours: [],
       editClick: false,
       selectedFile: null,
-      profileUrl: "", 
+      profileUrl: "",
       appointments: "",
-      subscriptions: "",
+      subscriptions: ""
     };
     this.editActive = this.editActive.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
-    
+    this.cancelAppt = this.cancelAppt.bind(this);
+
   }
   componentDidMount() {
     this.props.getUser();
@@ -51,24 +52,30 @@ class UserBus extends Component {
       console.log(response.data);
       this.setState({ profileUrl: response.data });
     });
-      axios
-        .get(`/api/bappointments/${this.props.user.id}`)
-        .then(response => {
-          console.log(response.data);
-          this.setState({ appointments: response.data });
-        });
-         axios
-           .get(`/api/subscriptions/${this.props.user.id}`)
-           .then(response => {
-             this.setState({ subscriptions: response.data });
-           })
-           .catch(console.log);
+    axios.get(`/api/bappointments/${this.props.user.id}`).then(response => {
+      console.log(response.data);
+      this.setState({ appointments: response.data });
+    });
+    axios
+      .get(`/api/subscriptions/${this.props.user.id}`)
+      .then(response => {
+        this.setState({ subscriptions: response.data });
+      })
+      .catch(console.log);
   }
-
 
   //updating buisness profile info
   editActive() {
     this.setState({ editClick: true });
+  }
+
+  cancelAppt(i) {
+    console.log(i);
+
+    console.log("bus ID", this.props.user.id);
+    axios
+      .delete(`/api/deletebappt/${this.props.user.id}/${i}`)
+      .then(response => alert("Appointment Canceled"));
   }
 
   updateInfo() {
@@ -89,39 +96,53 @@ class UserBus extends Component {
       address: this.props.busAddress,
       bio: this.props.busBio
     };
-    axios
-      .put(`/api/business/${this.props.user.id}`, newinfo)
-      .then(results => {
-        console.log("updated business table");
-      });
+    axios.put(`/api/business/${this.props.user.id}`, newinfo).then(results => {
+      console.log("updated business table");
+    });
     this.setState({ editClick: false });
     alert("Profile Updated");
   }
   render() {
-    let tableData = this.state.appointments && this.state.appointments.map(
-        (obj, i) => {
-          return (
-            <tr key={i}>
-              <td>
-                {obj.name}
-              </td>
-              <td>{obj.date}</td>
-              <td>{obj.time}</td>
-            </tr>
-          );
-        }
-      );
-      let subNum = this.state.subscriptions.length;
-      let apptNum = this.state.appointments.length;
+    let tableData =
+      this.state.appointments &&
+      this.state.appointments.map((obj, i) => {
+        return (
+          <tr key={i}>
+            <td>{obj.name}</td>
+            <td>{obj.date}</td>
+            <td>{obj.time}</td>
+            <td
+              onClick={() => this.cancelAppt(obj.user_id)}
+              className="cancelAppt"
+            >
+              Cancel
+            </td>
+          </tr>
+        );
+      });
+    let subNum = this.state.subscriptions.length;
+    let apptNum = this.state.appointments.length;
     console.log(this.props.busType);
     console.log(this.props.busEmail);
-    return <div className="main-container">
+    return (
+      <div className="main-container">
         <Header />
         <h1>{this.props.user.name}</h1>
-        <p>{this.props.user.city}, {this.props.user.state}</p>
-        {this.state.businessInfo.length > 0 && <div>
+        <p>
+          {this.props.user.city}, {this.props.user.state}
+        </p>
+        {this.state.businessInfo.length > 0 && (
+          <div>
             <div className="about_strp">
-              {this.state.profileUrl && <Image src={this.state.profileUrl[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />}
+              {this.state.profileUrl && (
+                <Image
+                  src={this.state.profileUrl[0].profilepic}
+                  alt="profile"
+                  className="profilepic"
+                  height={240}
+                  width={240}
+                />
+              )}
               <h2>{this.state.businessInfo[0].jobtype}</h2>
             </div>
             <div className="about">
@@ -131,7 +152,8 @@ class UserBus extends Component {
               <h3>Location: {this.state.businessInfo[0].address}</h3>
             </div>
             <div>
-              {this.state.busHours.length > 0 && <div>
+              {this.state.busHours.length > 0 && (
+                <div>
                   <h1>Hours Of Operation</h1>
                   <ul>
                     <li>Sun: {this.state.busHours[0].sun}</li>
@@ -142,7 +164,8 @@ class UserBus extends Component {
                     <li>Fri: {this.state.busHours[0].fri}</li>
                     <li>Sat: {this.state.busHours[0].sat}</li>
                   </ul>
-                </div>}
+                </div>
+              )}
               <h1>Subscribers {subNum}</h1>
               <h2>Appointments {apptNum}</h2>
               <div>
@@ -152,34 +175,71 @@ class UserBus extends Component {
                     <th>Client</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Cancel</th>
                   </tr>
                   {tableData}
                 </table>
               </div>;
               <button onClick={this.editActive}>Edit Profile</button>
-              {this.state.editClick === true ? <div>
+              {this.state.editClick === true ? (
+                <div>
                   <h2>Name:</h2>
-                  <input type="text" placeholder={this.state.businessInfo[0].name} onChange={e => this.props.updateBusName(e.target.value)} />
+                  <input
+                    type="text"
+                    placeholder={this.state.businessInfo[0].name}
+                    onChange={e => this.props.updateBusName(e.target.value)}
+                  />
                   <h2>City:</h2>
-                  <input type="text" placeholder="City" onChange={e => this.props.updateBusCity(e.target.value)} />
+                  <input
+                    type="text"
+                    placeholder="City"
+                    onChange={e => this.props.updateBusCity(e.target.value)}
+                  />
                   <h2>State:</h2>
-                  <input type="text" placeholder="State" onChange={e => this.props.updateBusState(e.target.value)} />
+                  <input
+                    type="text"
+                    placeholder="State"
+                    onChange={e => this.props.updateBusState(e.target.value)}
+                  />
                   <h2>Bio:</h2>
-                  <input type="text" placeholder={this.state.businessInfo[0].bio} onChange={e => this.props.updateBusBio(e.target.value)} />
+                  <input
+                    type="text"
+                    placeholder={this.state.businessInfo[0].bio}
+                    onChange={e => this.props.updateBusBio(e.target.value)}
+                  />
                   <h2>Business Type:</h2>
-                  <input type="text" placeholder={this.state.businessInfo[0].jobtype} onChange={e => this.props.updateBusType(e.target.value)} />
+                  <input
+                    type="text"
+                    placeholder={this.state.businessInfo[0].jobtype}
+                    onChange={e => this.props.updateBusType(e.target.value)}
+                  />
                   <h2>Phone:</h2>
-                  <input type="text" placeholder={this.state.businessInfo[0].phone} onChange={e => this.props.updateBusPhone(e.target.value)} />
+                  <input
+                    type="text"
+                    placeholder={this.state.businessInfo[0].phone}
+                    onChange={e => this.props.updateBusPhone(e.target.value)}
+                  />
                   <h2>Address:</h2>
-                  <input type="text" placeholder={this.state.businessInfo[0].address} onChange={e => this.props.updateBusAddress(e.target.value)} />
+                  <input
+                    type="text"
+                    placeholder={this.state.businessInfo[0].address}
+                    onChange={e => this.props.updateBusAddress(e.target.value)}
+                  />
                   <h2>Email:</h2>
-                  <input type="email" placeholder={this.state.businessInfo[0].email} onChange={e => this.props.updateBusEmail(e.target.value)} />
+                  <input
+                    type="email"
+                    placeholder={this.state.businessInfo[0].email}
+                    onChange={e => this.props.updateBusEmail(e.target.value)}
+                  />
                   <button onClick={this.updateInfo}>Submit</button>
-                  <BusPic />
-                </div> : null}
+                  <ImageUploader />
+                </div>
+              ) : null}
             </div>
-          </div>}
-      </div>;
+          </div>
+        )}
+      </div>
+    );
   }
 }
 

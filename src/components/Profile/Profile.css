@@ -1,8 +1,8 @@
 .profile_body{
-    background: linear-gradient(to bottom right, rgba(39,42,59,.8), rgba(39,42,59,1));
+    background: #1a1a1d;
     height: 100vh;
     width: 100%;
-    color: white;
+    color: #4e4e50;
 }
 
 .about_container{
@@ -22,12 +22,13 @@ hr {
     height: 7px;
     z-index: -1;
     /* Set the hr color */
-    background-color: #F46060; 
+    background-color: #6f2232; 
 }
 .main_content{
     
 }
 .clicks{
+    position: relative;
     font-style: bold;
     font-size: 1.3em;
     color: white;
@@ -35,7 +36,7 @@ hr {
 }
 .clicks:hover{
     cursor: pointer;
-    color: #F46060;
+    color: #c3073f;
     font-style: bold;
 }
 .editProfile{
@@ -44,29 +45,43 @@ hr {
     margin-right: 5%;
 }
 .table_container{
+    background: #171719;
+    -webkit-box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
+    position: absolute;
+    margin-left: 28%;
     display: flex;
     justify-content: center;
+    height: 80vh;
+    color: white;
+
     
 }
 table {
     border-collapse: collapse;
     width: 40vw;
--webkit-box-shadow: 5px 7px 8px -4px rgba(244,96,96,0.71);
+/* -webkit-box-shadow: 5px 7px 8px -4px rgba(244,96,96,0.71);
 -moz-box-shadow: 5px 7px 8px -4px rgba(244,96,96,0.71);
-box-shadow: 5px 7px 8px -4px rgba(244,96,96,0.71);
+box-shadow: 5px 7px 8px -4px rgba(244,96,96,0.71); */
 }
 th{
     height: 50px;
     text-align: center;
-    background:   #31354A;
-    color: #F46060;
+    background:   #202024;
+    color: #c3073f;
 }
 th, td {
     padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
-tr:nth-child(even) {background: rgb(49, 53, 74);}
+.cancelAppt:hover {
+    cursor: pointer;
+    color: #c3073f;
+}
+tr:nth-child(even) {background:#202024;}
 td:hover {
-    background: #3f2323;
+  
 }
 table, th, td {
     border: 1px solid black;

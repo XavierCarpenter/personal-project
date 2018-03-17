@@ -7,6 +7,7 @@ import axios from "axios";
 import { getUser, searchInput } from "../../ducks/reducer";
 import { getBusinesses } from "../../ducks/reducer";
 import Landing from "../Landing/Landing";
+import Image from "react-image-resizer";
 
 // We'll use an href to handle the logout so we can redirect from the server
 
@@ -33,27 +34,26 @@ class ExploreType extends Component {
     });
   }
   render() {
-    return (
-      <div>
+    return <div className= "explore_container">
         <Header />
         <h1>exploreType</h1>
         <h1 className="title">Search Results</h1>
-        {this.state.selected &&
-          this.state.selected.map((business, i) => {
-            return (
-              <div key={i} className="box">
-                <div className="box-content">
+        {this.state.selected && this.state.selected.map((business, i) => {
+            return <div key={i} className="bus_container">
+                <div className="bus_box">
+                  <Image src={business.profilepic} alt="profile" className="profilepic" height={240} width={240} />
                   <h3>{business.name}</h3>
-                  <h3> {business.state}</h3>
+                  <h3>
+                    {" "}
+                    {business.city},{business.state}
+                  </h3>
                   <Link to={`/business/${business.id}`} key={i}>
                     <p>View Portfolio</p>
                   </Link>
                 </div>
-              </div>
-            );
+              </div>;
           })}
-      </div>
-    );
+      </div>;
   }
 }
 

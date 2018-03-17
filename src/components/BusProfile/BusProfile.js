@@ -53,7 +53,6 @@ class BusProfile extends Component {
     });
     //get business profile pic
     axios.get(`/api/buspic/${this.props.match.params.id}`).then(response => {
-      console.log(response.data);
       this.setState({ profileUrl: response.data });
     });
   }
@@ -77,45 +76,46 @@ class BusProfile extends Component {
  
   
   render() {
-console.log(this.state.appClick)
-    return <div className="main-container">
-        <Header />
-        <h1>{this.props.match.params.name}</h1>
-        <p>
-          {this.props.match.params.city}, {this.props.match.params.state}
-        </p>
-        {this.state.businessInfo.length > 0 && <div>
-            <div className="about_strp">
-              {this.state.profileUrl && <Image src={this.state.profileUrl[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />}
-              <h2>{this.state.businessInfo[0].jobtype}</h2>
-              <button onClick={this.appActive}>Schedule Appointment</button>
-              <button onClick={() => this.addSub()}>Subscribe</button>
-            </div>
-            <div className="about">
-              <h1>{this.state.businessInfo[0].name}</h1>
-              <p>{this.state.businessInfo[0].bio}</p>
-              <h3>Phone: {this.state.businessInfo[0].phone}</h3>
-              <h3>Location: {this.state.businessInfo[0].address}</h3>
-            </div>
-            <div>
-              {this.state.busHours.length > 0 && <div>
-                  <h1>Hours Of Operation</h1>
-                  <ul>
-                    <li>Sun: {this.state.busHours[0].sun}</li>
-                    <li>Mon: {this.state.busHours[0].mon}</li>
-                    <li>Tue: {this.state.busHours[0].tue}</li>
-                    <li>Wed: {this.state.busHours[0].wed}</li>
-                    <li>Thur: {this.state.busHours[0].thurs}</li>
-                    <li>Fri: {this.state.busHours[0].fri}</li>
-                    <li>Sat: {this.state.busHours[0].sat}</li>
-                  </ul>
-                </div>}
-                {this.state.appClick &&
-              <Calendar appActive = {this.appActive} />
 
-                }
-            </div>
-          </div>}
+    return <div>
+        <Header />
+        <div className="busProfile-container">
+          <h1>{this.props.match.params.name}</h1>
+          <p>
+            {this.props.match.params.city}, {this.props.match.params.state}
+          </p>
+          {this.state.businessInfo.length > 0 && <div>
+              <div className="about_strp">
+                {this.state.profileUrl && <Image src={this.state.profileUrl[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />}
+                <h2>{this.state.businessInfo[0].jobtype}</h2>
+                <button onClick={this.appActive}>
+                  Schedule Appointment
+                </button>
+                <button onClick={() => this.addSub()}>Subscribe</button>
+              </div>
+              <div className="about">
+                <h1>{this.state.businessInfo[0].name}</h1>
+                <p>{this.state.businessInfo[0].bio}</p>
+                <h3>Phone: {this.state.businessInfo[0].phone}</h3>
+                <h3>Location: {this.state.businessInfo[0].address}</h3>
+              </div>
+              <div>
+                {this.state.busHours.length > 0 && <div>
+                    <h1>Hours Of Operation</h1>
+                    <ul>
+                      <li>Sun: {this.state.busHours[0].sun}</li>
+                      <li>Mon: {this.state.busHours[0].mon}</li>
+                      <li>Tue: {this.state.busHours[0].tue}</li>
+                      <li>Wed: {this.state.busHours[0].wed}</li>
+                      <li>Thur: {this.state.busHours[0].thurs}</li>
+                      <li>Fri: {this.state.busHours[0].fri}</li>
+                      <li>Sat: {this.state.busHours[0].sat}</li>
+                    </ul>
+                  </div>}
+                {this.state.appClick && <Calendar appActive={this.appActive} />}
+              </div>
+            </div>}
+        </div>
       </div>;
   }
 }

@@ -22,10 +22,10 @@ module.exports = {
   },
   deleteSub: (req, res, next) => {
     const dbInstance = req.app.get("db");
-    const {params, busid} = req;
+    const {params,} = req;
 
     dbInstance
-    .delete_sub([params.id, busid])
+    .delete_sub([params.id, params.id2])
     .then(() => res.status(200).json())
     .catch(() => res.status(500).json());
   }

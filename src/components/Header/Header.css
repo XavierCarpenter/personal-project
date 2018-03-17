@@ -1,8 +1,8 @@
 .App-header {
-  background: #31354A;
+  background: #1a1a1d;
   width: 100vw;
   height: 5.5vh;
-  color: white;
+  color: #4e4e50;
   display: flex;
   justify-content: center;
 }
@@ -14,7 +14,7 @@
   padding: 15px 0;
 }
 .logo{
-    color:#F46060 ;
+    color:#c3073f;
 }
 .search{
     display: flex;
@@ -24,13 +24,17 @@
 .search input{
     width: 15vw;
     height: 2em;
+    background: #4e4e50;
 }
 .search input[type=text]{
 
 }
+.fas{
+    color:#c3073f
+}
 .search button{
-  background: #F46060;
-  border-color: black;
+ background: #1a1a1d;
+  border-color: #1a1a1d;
     height: 2.6em;
 }
 .search button:hover{
@@ -39,7 +43,7 @@
     color: #444444;
 }
 .profileLink:hover{
-    color:#F46060;
+    color:#c3073f;
 }
 .nav{
     display: flex;
@@ -48,15 +52,15 @@
 }
 .nav Link{
 text-decoration: none;
-color: #F46060;
+color: #c3073f;
 }
 .nav p{
-     color: white;
+     color: #4e4e50;
      text-decoration: none;
      padding: 10px 10px;
 }
 .nav h1{
-    color: white;
+    color: #4e4e50;
     position: relative;
      text-decoration: none;
      padding: 10px 10px;
@@ -64,5 +68,5 @@ color: #F46060;
      flex-direction: flex-end;
 }
 .nav p:hover{
-    color: #F46060;
+    color: #c3073f;
 }

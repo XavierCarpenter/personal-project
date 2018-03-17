@@ -1,4 +1,9 @@
+busProfile-container{
+ background: #1a1a1d;
+}
 .about_strip h2{
+    font-size: 3em;
     border: 2px solid black;
 
 }
+

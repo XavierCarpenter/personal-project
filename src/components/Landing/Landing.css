@@ -31,16 +31,21 @@
   /* text-align: center; */
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.0);
   color: #fff;
   font-family: sans-serif;
 }
 .landing-nav{
     position: fixed;
     display: flex;
+    z-index: 2;
+      background-color: rgba(0, 0, 0, 0.0);
+    width: 100%;
+    height: 100px;
 }
 .landing-nav h1{
     font-size: 3em;
+    color: #c3073f;
 }
 .landing-nav p{
     display: flex;
@@ -53,6 +58,7 @@
     color: blue;
 }
 #subtitle {
+  background-color: rgba(0, 0, 0, 0.3);
   margin: 0;
   padding: 0;
   position: absolute;

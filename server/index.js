@@ -88,17 +88,17 @@ passport.deserializeUser((user, done) => done(null, user));
 app.get(
   "/login",
   passport.authenticate("auth0", {
-    failureRedirect: "http://locahost:3001/#/login"
+    failureRedirect: "http://locahost:3000/#/login"
   }),
   (req, res) => {
     // console.log(req.user);
     //if user don't have account
     if (!req.user.city) {
       //send to setup
-      res.redirect(`http://localhost:3001/#/setup/`);
+      res.redirect(`http://localhost:3000/#/setup/`);
     } else {
       //send to profile
-      res.redirect(`http://localhost:3001/#/user/${req.user.name}`);
+      res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
     }
   }
 );
@@ -129,12 +129,14 @@ app.post("/api/createbus/:id", bc.createBus);
 //subscribers
 app.post("/api/subscriptions", sc.createSub);
 app.get("/api/subscriptions/:id", sc.getSubs);
-app.delete("/api/deletesub/:id", sc.deleteSub);
+app.delete("/api/deletesub/:id/:id2", sc.deleteSub);
 
 //appointments
 app.post("/api/appointment/:id", uc.newAppt);
 app.get("/api/appointments/:id", uc.getAppt);
 app.get("/api/bappointments/:id", uc.getBAppt);
+app.delete("/api/deleteappt/:id/:id2", uc.deleteAppt);
+app.delete("/api/deletebappt/:id/:id2", uc.deleteBAppt);
 
 //update user info
 app.put("/api/user/:id", uc.updateInfo);
