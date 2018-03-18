@@ -171,6 +171,7 @@ class Profile extends Component {
                         style={style.image}
                         height={240}
                         width={240}
+       
                       />
                     </div>
                   );
@@ -183,6 +184,7 @@ class Profile extends Component {
               </div>
             </div>
             <hr />
+      
 
             <div className="main_content">
               <h2 className="clicks" onClick={this.appActive}>
@@ -218,7 +220,7 @@ class Profile extends Component {
                         width={50}
                       />
                       <p>
-                        {obj.name} {obj.jobtype}
+                        {obj.name}({obj.jobtype})
                         <span
                           className="DeleteSub"
                           onClick={() => this.deleteSub(obj.bus_id)}

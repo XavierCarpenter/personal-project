@@ -93,6 +93,7 @@ class BusProfile extends Component {
                 </button>
                 <button onClick={() => this.addSub()}>Subscribe</button>
               </div>
+              <hr />
               <div className="about">
                 <h1>{this.state.businessInfo[0].name}</h1>
                 <p>{this.state.businessInfo[0].bio}</p>

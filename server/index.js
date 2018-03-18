@@ -38,7 +38,6 @@ app.use(json());
 app.use(cors());
 
 // SERVING PRODUCTION FILES
-// app.use(express.static(`${__dirname}/../build/`));
 
 app.use(
   session({
@@ -88,7 +87,7 @@ passport.deserializeUser((user, done) => done(null, user));
 app.get(
   "/login",
   passport.authenticate("auth0", {
-    failureRedirect: "http://locahost:3000/#/login"
+    failureRedirect: "/#/login"
   }),
   (req, res) => {
     // console.log(req.user);
@@ -98,7 +97,7 @@ app.get(
       res.redirect(`http://localhost:3000/#/setup/`);
     } else {
       //send to profile
-      res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
+      res.redirect(`/#/user/${req.user.name}`);
     }
   }
 );
@@ -110,7 +109,7 @@ app.get("/api/me", (req, res) => {
 
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("http://localhost:3001/#/");
+    res.redirect("/#/");
   });
 });
 

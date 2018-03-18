@@ -1,5 +1,7 @@
 busProfile-container{
- background: #1a1a1d;
+ background: blue;
+ height: 100vh;
+
 }
 .about_strip h2{
     font-size: 3em;
