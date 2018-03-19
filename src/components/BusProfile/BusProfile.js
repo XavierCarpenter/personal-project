@@ -31,18 +31,15 @@ class BusProfile extends Component {
       busHours: [],
       selectedFile: null,
       profileUrl: "",
-      appClick: false,
+      appClick: false
     };
     this.addSub = this.addSub.bind(this);
     this.appActive = this.appActive.bind(this);
-    
-
-
-    
   }
   componentDidMount() {
     this.props.getUser();
     axios.get(`/api/business/${this.props.match.params.id}`).then(results => {
+      console.log(results.data);
       this.setState({ businessInfo: results.data });
     });
     // In here you could go get the user data from this.props.match.params
@@ -69,55 +66,126 @@ class BusProfile extends Component {
     });
   }
   appActive() {
-     this.setState({appClick: !this.state.appClick});
+    this.setState({ appClick: !this.state.appClick });
   }
 
-
- 
-  
   render() {
+    console.log(this.state.businessInfo);
+    let menuData = this.state.businessInfo && this.state.businessInfo.map(
+        (obj, i) => {
+          console.log(obj);
+          return (
+            <tr key={i}>
+              <td>
+                {obj.service}
+              </td>
+              <td>${obj.price}</td>
+             
+            </tr>
+          );
+        }
+      );
 
-    return <div>
+    return (
+      <div>
         <Header />
         <div className="busProfile-container">
-          <h1>{this.props.match.params.name}</h1>
-          <p>
-            {this.props.match.params.city}, {this.props.match.params.state}
-          </p>
-          {this.state.businessInfo.length > 0 && <div>
+          {this.state.businessInfo.length > 0 && (
+            <div>
               <div className="about_strp">
-                {this.state.profileUrl && <Image src={this.state.profileUrl[0].profilepic} alt="profile" className="profilepic" height={240} width={240} />}
+                <Image
+                  src={this.state.businessInfo[0].profilepic}
+                  alt="profile"
+                  className="profilepic"
+                  height={240}
+                  width={240}
+                />
                 <h2>{this.state.businessInfo[0].jobtype}</h2>
-                <button onClick={this.appActive}>
+                <button className="appBtn" onClick={this.appActive}>
                   Schedule Appointment
                 </button>
-                <button onClick={() => this.addSub()}>Subscribe</button>
+                <button className="subBtn" onClick={() => this.addSub()}>
+                  Subscribe
+                </button>
               </div>
+              {/* <div className="topLine"></div> */}
               <hr />
-              <div className="about">
-                <h1>{this.state.businessInfo[0].name}</h1>
-                <p>{this.state.businessInfo[0].bio}</p>
-                <h3>Phone: {this.state.businessInfo[0].phone}</h3>
-                <h3>Location: {this.state.businessInfo[0].address}</h3>
+              <div className="main">
+                <div className="busInfo">
+                  <h1 id="name">{this.state.businessInfo[0].name}</h1>
+                  <hr />
+                  <p class="info" id="bio">
+                    {this.state.businessInfo[0].bio}
+                  </p>
+                  {this.state.busHours.length > 0 && (
+                    <div>
+                      <h1 className="bold-text">Hours Of Operation</h1>
+                      <hr />
+                      <ul>
+                        <li>
+                          <span id="dow">Sun:</span>{" "}
+                          {this.state.busHours[0].sun}
+                        </li>
+                        <li>
+                          <span id="dow">Mon:</span>{" "}
+                          {this.state.busHours[0].mon}
+                        </li>
+                        <li>
+                          <span id="dow">Tue:</span>{" "}
+                          {this.state.busHours[0].tue}
+                        </li>
+                        <li>
+                          <span id="dow">Wed:</span>{" "}
+                          {this.state.busHours[0].wed}
+                        </li>
+                        <li>
+                          <span id="dow">Thur:</span>{" "}
+                          {this.state.busHours[0].thurs}
+                        </li>
+                        <li>
+                          <span id="dow">Fri:</span>{" "}
+                          {this.state.busHours[0].fri}
+                        </li>
+                        <li>
+                          <span id="dow">Sat:</span>{" "}
+                          {this.state.busHours[0].sat}
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                  <h3 className="bold-text">
+                    Phone: {this.state.businessInfo[0].phone}
+                  </h3>
+                  <h3>{this.state.businessInfo[0].address}</h3>
+                  <p>
+                    {this.state.businessInfo[0].city},{" "}
+                    {this.state.businessInfo[0].state}
+                  </p>
+                </div>
+                <div className="menu">
+                  <table>
+                    <caption>Prices</caption>
+               
+                    <tr>
+                      <th>Service</th>
+                      <th>Price</th>
+                     
+                    </tr>
+                    <tr>
+                      {menuData}
+                 
+                    </tr>
+                  </table>
+                </div>
               </div>
-              <div>
-                {this.state.busHours.length > 0 && <div>
-                    <h1>Hours Of Operation</h1>
-                    <ul>
-                      <li>Sun: {this.state.busHours[0].sun}</li>
-                      <li>Mon: {this.state.busHours[0].mon}</li>
-                      <li>Tue: {this.state.busHours[0].tue}</li>
-                      <li>Wed: {this.state.busHours[0].wed}</li>
-                      <li>Thur: {this.state.busHours[0].thurs}</li>
-                      <li>Fri: {this.state.busHours[0].fri}</li>
-                      <li>Sat: {this.state.busHours[0].sat}</li>
-                    </ul>
-                  </div>}
+              <div className="Calender">
                 {this.state.appClick && <Calendar appActive={this.appActive} />}
               </div>
-            </div>}
+            </div>
+          )}
         </div>
-      </div>;
+      </div>
+    );
   }
 }
 

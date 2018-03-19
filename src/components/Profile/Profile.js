@@ -14,7 +14,7 @@ import {
   updateBusPofile,
   updateGenPofile
 } from "../../ducks/reducer";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 class Profile extends Component {
@@ -31,11 +31,10 @@ class Profile extends Component {
     };
     this.editActive = this.editActive.bind(this);
     this.subActive = this.subActive.bind(this);
-    this.appActive = this.appActive.bind(this);    
+    this.appActive = this.appActive.bind(this);
     this.updateInfo = this.updateInfo.bind(this);
     this.deleteSub = this.deleteSub.bind(this);
     this.cancelAppt = this.cancelAppt.bind(this);
-    
   }
   componentDidMount() {
     this.props.getBusinesses();
@@ -75,10 +74,10 @@ class Profile extends Component {
       .delete(`/api/deletesub/${this.props.user.id}/${i}`)
       .then(response => alert("unsubscribed"));
   }
-  cancelAppt(i){
+  cancelAppt(i) {
     console.log(i);
- 
-    console.log("USED ID", this.props.user.id)
+
+    console.log("USED ID", this.props.user.id);
     axios
       .delete(`/api/deleteappt/${this.props.user.id}/${i}`)
       .then(response => alert("Appointment Canceled"));
@@ -100,11 +99,11 @@ class Profile extends Component {
   }
 
   render() {
-    console.log(this.state.profileUrl)
+    console.log(this.state.subscriptions);
     let tableData =
       this.state.appointments &&
       this.state.appointments.map((obj, i) => {
-        console.log(obj)
+        console.log(obj);
         return (
           <tr key={i}>
             <td>
@@ -112,46 +111,40 @@ class Profile extends Component {
             </td>
             <td>{obj.date}</td>
             <td>{obj.time}</td>
-            <td onClick={() => this.cancelAppt(obj.bus_id)} className="cancelAppt">Cancel</td>
+            <td
+              onClick={() => this.cancelAppt(obj.bus_id)}
+              className="cancelAppt"
+            >
+              Cancel
+            </td>
           </tr>
         );
       });
 
-      let subData = this.state.subscriptions && this.state.subscriptions.map(
-          (obj, i) => {
-            return (
-              <div key={i} style={{ height: "auto", width: "auto" }}>
-                <img
-                  src={obj.profilepic}
-                  alt="buspic"
-                  className="profilepic"
-                  heigth={50}
-                  width={50}
-                />
-                <p>
-                  {obj.name} {obj.jobtype}
-                  <span
-                    className="DeleteSub"
-                    onClick={() => this.deleteSub(obj.bus_id)}
-                  >
-                    X
-                  </span>
-                </p>
-              </div>
-            );
-          }
+    let subData =
+      this.state.subscriptions &&
+      this.state.subscriptions.map((obj, i) => {
+        return (
+          <div key={i} className="busBox">
+            <img
+              src={obj.profilepic}
+              alt="buspic"
+              className="profilepic"
+              heigth={200}
+              width={200}
+            />
+            <h3>{obj.name}</h3>
+            <h3>{obj.jobtype}</h3>
+            <Link to={`/business/${obj.bus_id}`} key={i}>
+              <p id="portfolioLink">View Portfolio</p>
+            </Link>
+            <p className="deleteSub" onClick={() => this.deleteSub(obj.bus_id)}>
+              Unsubscribed
+            </p>
+          </div>
         );
-    const style = {
-      image: {
-        border: "3px solid #444444",
-        background: "#444444",
-        position: "absolute",
-        display: "flex",
-        margin: "8% 0 0 8%",
-        // padding: "0 0 -10px 0",
-        top: "10%"
-      }
-    };
+      });
+    const style = { image: {  position: "absolute", display: "flex", margin: "8% 0 0 8%", top: "10%" } }; // padding: "0 0 -10px 0",
     let subNum = this.state.subscriptions.length;
     let apptNum = this.state.appointments.length;
 
@@ -171,7 +164,6 @@ class Profile extends Component {
                         style={style.image}
                         height={240}
                         width={240}
-       
                       />
                     </div>
                   );
@@ -184,56 +176,38 @@ class Profile extends Component {
               </div>
             </div>
             <hr />
-      
 
             <div className="main_content">
               <h2 className="clicks" onClick={this.appActive}>
                 Appointments {apptNum}
               </h2>
-              {this.state.appClick === true ?
-              <div className="table_container">
-                <table>
-                  <caption>Your Appointments</caption>
-                  <tr>
-                    <th>Free Agent</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Cancel</th>
-                  </tr>
-                  {tableData}
-                </table>
-              </div> : null}
+              {this.state.appClick === true ? (
+                <div className="table_container">
+                  <table>
+                    <caption>Your Appointments</caption>
+                
+                    <tr>
+                      <th>Free Agent</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Cancel</th>
+                    </tr>
+                    {tableData}
+                  </table>
+                </div>
+              ) : null}
               <h2 className="clicks" onClick={this.subActive}>
                 Subscriptions {subNum}
               </h2>
-              {this.state.subClick === true ?
-              <div>
-              {this.state.subscriptions &&
-                this.state.subscriptions.map((obj, i) => {
-                  return (
-                    <div key={i} style={{ height: "auto", width: "auto" }}>
-                      <img
-                        src={obj.profilepic}
-                        alt="buspic"
-                        className="profilepic"
-                        heigth={50}
-                        width={50}
-                      />
-                      <p>
-                        {obj.name}({obj.jobtype})
-                        <span
-                          className="DeleteSub"
-                          onClick={() => this.deleteSub(obj.bus_id)}
-                        >
-                          X
-                        </span>
-                      </p>
-                    </div>
-                  );
-                })} </div>: null}
+              {this.state.subClick === true ? (
+                <div className="sub_container">
+                  <h1>Your Subscriptions</h1>
+                  {subData}{" "}
+                </div>
+              ) : null}
               <h2 className="clicks">Order History</h2>
               <div className="editProfile">
-                <button onClick={this.editActive}>Edit Profile</button>
+                <button className= "editBtn" onClick={this.editActive}>Edit Profile</button>
               </div>
               {this.state.editClick === true ? (
                 <div>
@@ -252,7 +226,7 @@ class Profile extends Component {
                     placeholder="State"
                     onChange={e => this.props.updateState(e.target.value)}
                   />
-                  <button onClick={this.updateInfo}>Submit</button>
+                  <button className="editBtn" onClick={this.updateInfo}>Submit</button>
                   <ImageUploader />
                 </div>
               ) : null}

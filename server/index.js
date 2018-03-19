@@ -45,7 +45,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 100000
+      maxAge: 100000 //365 * 24 * 60 * 60 * 1000
     }
   })
 );
@@ -97,7 +97,7 @@ app.get(
       res.redirect(`http://localhost:3000/#/setup/`);
     } else {
       //send to profile
-      res.redirect(`/#/user/${req.user.name}`);
+      res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
     }
   }
 );

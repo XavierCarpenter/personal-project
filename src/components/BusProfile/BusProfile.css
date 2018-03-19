@@ -1,11 +1,74 @@
 busProfile-container{
- background: blue;
+color: white;
  height: 100vh;
 
 }
-.about_strip h2{
-    font-size: 3em;
-    border: 2px solid black;
+.about_strip{
+    /* font-size: 5em;
+    border: 2px solid black; */
+    color: white;
 
 }
+appBtn{
+    display: flex;
+}
+subBtn{
+    display: flex;
+    padding-left: 30%;
+    justify-content: flex-end;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+}
+.busInfo{
+    background: #171719;
+    margin: 2% 0 0 2%;
+    width: 20vw;
+    height: 45vh;
+    color: #6D6D70;
+    padding: 50px;
+}
+.menu{
+       background: #171719;
+       margin: 2% 0 0 4%;
+         width: 40vw;
+       height: 45vh;
+}
+caption{
+     color: #6D6D70;
+     font-size: 2em;
+}
+td{
+    color: #6D6D70;
+}
+.Calender{
+    margin: 5%;
+    
+}
+.bold-text{
+    font-weight: bold;
+    font-size: 1em;
+    padding: 0 0 5px 0 ;
+}
+ul{
+    padding: 0 0 25px 0;
+}
+#name{
+    font-size: 2em;
+    font-weight: bold;
+    padding: 0 0 10px 0
+}
+#dow{
+    font-weight: bold;
+}
+#bio{
+    padding: 0 0 25px 0
+}
 
+/* .topLine{
+    border-bottom: 7px solid #6f2232;
+    position: absolute;
+    top: 20px;
+    /* margin-top: 40%; */
+/* }  */

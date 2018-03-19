@@ -2,7 +2,7 @@
     background: #1a1a1d;
     height: 100vh;
     width: 100%;
-    color: #4e4e50;
+    color: #6D6D70;
 }
 
 .about_container{
@@ -26,10 +26,26 @@ hr {
 }
 
 .main_content{
+   background: #171719;
+    margin: 10px 0 0 10px;
+    height: 25vh;
+    width: 15%;
     
 }
+/* .editProfile{
+    position: absolute;
+  background: blue;
+    display: flex;
+    justify-content: flex-start;
+}
+editBtn:hover{
+    cursor: pointer;
+} */
 .clicks{
     position: relative;
+  
+    
+    padding: 15px 0 0 15px;
     font-style: bold;
     font-size: 1.3em;
     color: white;
@@ -66,6 +82,10 @@ table {
 -moz-box-shadow: 5px 7px 8px -4px rgba(244,96,96,0.71);
 box-shadow: 5px 7px 8px -4px rgba(244,96,96,0.71); */
 }
+caption{
+     color: #6D6D70;
+     font-size: 2em;
+}
 th{
     height: 50px;
     text-align: center;
@@ -79,6 +99,33 @@ th, td {
 .cancelAppt:hover {
     cursor: pointer;
     color: #c3073f;
+}
+.sub_container{
+     background: #171719;
+      position: absolute;
+    margin-left: 28%;
+   display: flex;
+    justify-content: space-around;
+    flex-wrap: inherit;
+    height: 80vh;
+    width: 50vw;
+}
+.sub_container h1{
+    position: absolute;
+    padding: 10px;
+}
+.busBox{
+    margin-top: 40px;
+}
+.deleteSub{
+    color: #6f2232;
+}
+.deleteSub:hover{
+    cursor: pointer;
+    color: #c3073f;
+}
+#portfolioLink{
+    color:  #c3073f;
 }
 tr:nth-child(even) {background:#202024;}
 td:hover {
