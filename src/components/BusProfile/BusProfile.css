@@ -7,14 +7,26 @@ color: white;
     /* font-size: 5em;
     border: 2px solid black; */
     color: white;
+    display: flex;
+    flex-direction: row;
 
 }
-appBtn{
-    display: flex;
+.about_strip h2{
+    font-size: 2em;
+    color: white;
 }
-subBtn{
+.buttons{
     display: flex;
-    padding-left: 30%;
+    margin: 0 20%;
+    flex-direction: row;
+}
+.appBtn{
+    display: flex;
+    margin: 0 5%;
+}
+.subBtn{
+    display: flex;
+ 
     justify-content: flex-end;
 }
 .main{
@@ -39,11 +51,16 @@ caption{
      color: #6D6D70;
      font-size: 2em;
 }
+.appTable{
+    width: 30vw;
+}
 td{
     color: #6D6D70;
+
 }
 .Calender{
     margin: 5%;
+    color: #c3073f
     
 }
 .bold-text{

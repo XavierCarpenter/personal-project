@@ -65,12 +65,14 @@ class Calendar extends Component {
           value={this.state.date}
           onChange={this.setDate}
           shouldDisableDate={this.disableWeekends}
+          style={{ color: "#c3073f", backgroundColor: "#6D6D70" }}
         />
         <TimePicker
           format="ampm"
           hintText="What time?"
           value={this.state.time}
           onChange={this.setTime}
+          style={{ color: "#c3073f", backgroundColor: "#6D6D70" }}
         />
         <button onClick={this.addAppt}>Confirm</button>
       </div>

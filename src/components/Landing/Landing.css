@@ -58,7 +58,7 @@
     color: blue;
 }
 #subtitle {
-  background-color: rgba(0, 0, 0, 0.3);
+  /* background-color: rgba(0, 0, 0, 0.3); */
   margin: 0;
   padding: 0;
   position: absolute;

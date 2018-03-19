@@ -38,10 +38,8 @@ class Profile extends Component {
   }
   componentDidMount() {
     this.props.getBusinesses();
-    this.props.getUser();
-    // In here you could go get the user data from this.props.match.params
-    // Or you could handle the redirect from the router.
-    // There's a few ways to handle this.
+    this.props.getUser().then(() => {;
+   
     axios
       .get(`/api/subscriptions/${this.props.user.id}`)
       .then(response => {
@@ -56,7 +54,9 @@ class Profile extends Component {
       console.log(response.data);
       this.setState({ appointments: response.data });
     });
+  })
   }
+
   editActive() {
     this.setState({ editClick: true });
   }
@@ -99,7 +99,7 @@ class Profile extends Component {
   }
 
   render() {
-    console.log(this.state.subscriptions);
+    console.log(this.state);
     let tableData =
       this.state.appointments &&
       this.state.appointments.map((obj, i) => {
@@ -144,30 +144,36 @@ class Profile extends Component {
           </div>
         );
       });
-    const style = { image: {  position: "absolute", display: "flex", margin: "8% 0 0 8%", top: "10%" } }; // padding: "0 0 -10px 0",
+    const style = {
+      image: {
+        position: "absolute",
+        display: "flex",
+        margin: "8% 0 0 8%",
+        top: "10%"
+      }
+    }; // padding: "0 0 -10px 0",
     let subNum = this.state.subscriptions.length;
     let apptNum = this.state.appointments.length;
 
-    return (
-      <div className="profile_body">
-        {this.props.user.profiletype === "general" ? (
-          <div className="pic_container">
+    return <div className="profile_body">
+        {this.props.user.profiletype === "general" ? <div>
             <Header />
             <div className="about_container">
-              {this.state.profileUrl &&
-                this.state.profileUrl.map((pic, i) => {
-                  return (
-                    <div key={i}>
-                      <Image
-                        src={pic.profilepic}
-                        alt="profile"
-                        style={style.image}
-                        height={240}
-                        width={240}
-                      />
-                    </div>
-                  );
-                })}
+              {this.state.profileUrl && this.state.profileUrl.map(
+                  (pic, i) => {
+                    return (
+                      <div key={i}>
+                        <Image
+                          src={pic.profilepic}
+                          alt="profile"
+                          style={style.image}
+                          height={240}
+                          width={240}
+                        />
+                      </div>
+                    );
+                  }
+                )}
               <div className="about_you">
                 <h1>{this.props.user.name}</h1>
                 <p>
@@ -178,65 +184,51 @@ class Profile extends Component {
             <hr />
 
             <div className="main_content">
-              <h2 className="clicks" onClick={this.appActive}>
-                Appointments {apptNum}
-              </h2>
-              {this.state.appClick === true ? (
-                <div className="table_container">
-                  <table>
-                    <caption>Your Appointments</caption>
-                
-                    <tr>
-                      <th>Free Agent</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Cancel</th>
-                    </tr>
-                    {tableData}
-                  </table>
+              <div className="main-Profile">
+                <h2 className="clicks" onClick={this.appActive}>
+                  Appointments {apptNum}
+                </h2>
+                {this.state.appClick === true ? <div className="table_container">
+                    <table className="appTable">
+                      <caption>Your Appointments</caption>
+
+                      <tr>
+                        <th>Free Agent</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Cancel</th>
+                      </tr>
+                      {tableData}
+                    </table>
+                  </div> : null}
+                <h2 className="clicks" onClick={this.subActive}>
+                  Subscriptions {subNum}
+                </h2>
+                {this.state.subClick === true ? <div className="sub_container">
+                    <h1>Your Subscriptions</h1>
+                    {subData}{" "}
+                  </div> : null}
+                <h2 className="clicks">Order History</h2>
+                <div className="editProfile">
+                  <button className="editBtn" onClick={this.editActive}>
+                    Edit Profile
+                  </button>
                 </div>
-              ) : null}
-              <h2 className="clicks" onClick={this.subActive}>
-                Subscriptions {subNum}
-              </h2>
-              {this.state.subClick === true ? (
-                <div className="sub_container">
-                  <h1>Your Subscriptions</h1>
-                  {subData}{" "}
-                </div>
-              ) : null}
-              <h2 className="clicks">Order History</h2>
-              <div className="editProfile">
-                <button className= "editBtn" onClick={this.editActive}>Edit Profile</button>
+                {this.state.editClick === true ? <div className="myInputs">
+                    <input className="editInput" type="text" placeholder={this.props.user.name} onChange={e => this.props.user.name(e.target.value)} />
+                    <input className="editInput" type="text" placeholder="City" onChange={e => this.props.updateCity(e.target.value)} />
+                    <input className="editInput" type="text" placeholder="State" onChange={e => this.props.updateState(e.target.value)} />
+                    <div className="imgUploader">
+                      <ImageUploader />
+                    </div>
+                    <button className="submitBtn" onClick={this.updateInfo}>
+                      Submit
+                    </button>
+                  </div> : null}
               </div>
-              {this.state.editClick === true ? (
-                <div>
-                  <input
-                    type="text"
-                    placeholder={this.props.user.name}
-                    onChange={e => this.props.user.name(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    placeholder="City"
-                    onChange={e => this.props.updateCity(e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    placeholder="State"
-                    onChange={e => this.props.updateState(e.target.value)}
-                  />
-                  <button className="editBtn" onClick={this.updateInfo}>Submit</button>
-                  <ImageUploader />
-                </div>
-              ) : null}
             </div>
-          </div>
-        ) : (
-          <UserBus />
-        )}
-      </div>
-    );
+          </div> : <UserBus />}
+      </div>;
   }
 }
 

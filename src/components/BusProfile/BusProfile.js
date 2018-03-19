@@ -101,12 +101,14 @@ class BusProfile extends Component {
                   width={240}
                 />
                 <h2>{this.state.businessInfo[0].jobtype}</h2>
+                <div className="buttons">
                 <button className="appBtn" onClick={this.appActive}>
                   Schedule Appointment
                 </button>
                 <button className="subBtn" onClick={() => this.addSub()}>
                   Subscribe
                 </button>
+                </div>
               </div>
               {/* <div className="topLine"></div> */}
               <hr />
@@ -171,15 +173,14 @@ class BusProfile extends Component {
                       <th>Price</th>
                      
                     </tr>
-                    <tr>
+                  
                       {menuData}
-                 
-                    </tr>
+                   
                   </table>
                 </div>
-              </div>
               <div className="Calender">
                 {this.state.appClick && <Calendar appActive={this.appActive} />}
+              </div>
               </div>
             </div>
           )}

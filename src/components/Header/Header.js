@@ -22,10 +22,10 @@ class Header extends Component {
               </h1>
               {/* <div className="search"> */}
               <form>
-                <input type="text" name="search" placeholder="Search..." onChange={e => this.props.searchInput(e.target.value)} />
+                <input className="searchInput" type="text" name="search" placeholder="Search..." onChange={e => this.props.searchInput(e.target.value)} />
                 </form>
                  <Link to="/type">
-                  <button type="submit">
+                  <button className="searchsubmit" type="submit">
                     <i className="fas fa-search" />
                   </button>
                 </Link>
