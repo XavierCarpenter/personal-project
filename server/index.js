@@ -94,10 +94,10 @@ app.get(
     //if user don't have account
     if (!req.user.city) {
       //send to setup
-      res.redirect(`http://localhost:3000/#/setup/`);
+      res.redirect(`/#/setup/`);
     } else {
       //send to profile
-      res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
+      res.redirect(`/#/user/${req.user.name}`);
     }
   }
 );
