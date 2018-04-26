@@ -1,134 +1,47 @@
 .body {
+  display: flex;
+    justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 0;
-}
-
-.container {
-  width: 100%;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.slider {
-  position: relative;
-  width: 500%;
-  animation: animate 15s linear infinite;
-}
-.slide {
-  position: relative;
-  width: 20%;
-  float: left;
+  background-image: url("../../images/landing1.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  width: 100vw;
   height: 100vh;
+}
+.landing-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgb(26, 26, 29, .6);
+  height: 350px;
+  width: 400px;
+margin: 0 auto;
 
 }
-.overlay{
-   margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 50%;
-  bottom: 0;
-  transform: translateY(-50%);
-  /* text-align: center; */
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.0);
-  color: #fff;
-  font-family: sans-serif;
+.Logo-Title{
+margin: 0 auto;
+padding: 10px 0;
 }
-.landing-nav{
-    position: fixed;
-    display: flex;
-    z-index: 2;
-      background-color: rgba(0, 0, 0, 0.0);
-    width: 100%;
-    height: 100px;
+.Login-Landing{
+  margin: 0 auto
 }
-.landing-nav h1{
-    font-size: 3em;
-    color: #c3073f;
-}
-.landing-nav p{
-    display: flex;
-    color: white;
-    justify-content: flex-end;
-    padding: 10px;
-}
-.landing-nav p:hover{
-    cursor: pointer;
-    color: blue;
-}
-#subtitle {
-  /* background-color: rgba(0, 0, 0, 0.3); */
-  margin: 0;
-  padding: 0;
-  position: absolute;
+.Logo-Title, .Login-Landing {
   display: flex;
-  margin-top: 25%;
-  margin-left: 10%;
-  /* top: 50%; */
-  /* bottom: 0; */
-  /* transform: translateY(-50%); */
-  font-size: 4em;
-  height: 100%;
-  width: 100%;
-  /* background: rgba(0, 0, 0, 0.4); */
-  color: #fff;
-  font-family: sans-serif;
-}
-#subtext{
-    max-width: 35%;
-    text-align: left;
-  padding: 0;
-  position: absolute;
-  display: flex;
-  margin-top: 30%;
-  margin-left: 10%;
-  font-size: 1.5em;
-  height: 100%;
-  width: 100%;
-  color: #fff;
-  font-family: sans-serif;
-}
-.slide {
-  background-size: cover;
-}
-.slide:nth-child(1) {
-  background: url("../../images/landing1.jpeg") no-repeat center center fixed;
- -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  
-}
-.slide:nth-child(2) {
-  background: url("../../images/landing2.jpeg") no-repeat center center fixed;
- -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-.slide:nth-child(3) {
-   background: url("../../images/landing3.jpeg") no-repeat center center fixed;
- -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-@keyframes animate {
-  0% {
-    left: 0;
-  }
-  16% {
-    left: 0;
-  }
-  20% {
-    left: -100%;
-  }
-  36% {
-    left: -100%;
-  }
-  40% {
-    left: -200%;
-  }
+  font-size: 3.4em;
+  color: #c3073f;
 
 }
+.Login-Landing {
+  /* margin: auto; */
+  color: white;
+  font-size: 2em;
+
+}
+.Login-Landing:hover {
+  cursor: pointer;
+  color: blue;
+}
+

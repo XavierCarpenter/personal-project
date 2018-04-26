@@ -146,9 +146,9 @@ class Profile extends Component {
       });
     const style = {
       image: {
-        position: "absolute",
+        // position: "absolute",
         display: "flex",
-        margin: "8% 0 0 8%",
+        margin: "25% 20px 0 25%",
         top: "10%"
       }
     }; // padding: "0 0 -10px 0",
@@ -162,13 +162,14 @@ class Profile extends Component {
               {this.state.profileUrl && this.state.profileUrl.map(
                   (pic, i) => {
                     return (
-                      <div key={i}>
-                        <Image
+                      <div className="userProfilepic" key={i}>
+                        <Image className="userProfilepic"
                           src={pic.profilepic}
                           alt="profile"
                           style={style.image}
                           height={240}
                           width={240}
+                          top={"60%"}
                         />
                       </div>
                     );
@@ -183,8 +184,8 @@ class Profile extends Component {
             </div>
             <hr />
 
-            <div className="main_content">
               <div className="main-Profile">
+            <div className="main_content">
                 <h2 className="clicks" onClick={this.appActive}>
                   Appointments {apptNum}
                 </h2>

@@ -9,11 +9,22 @@
   display: flex;
   flex-direction: row;
 }
+.userProfilePic img{
+  margin: 70px 0;
+  top: 20%;
+}
 .about_you {
   display: flex;
   flex-direction: column;
   margin: 12% 0 0 2%;
   padding: 10px;
+}
+
+.jobTitle{
+  width: 180px;
+  font-size: 1.5em;
+  color: #c3073f;
+  margin: 0 0 0 12%;
 }
 hr {
   border: none;
@@ -22,12 +33,27 @@ hr {
   /* Set the hr color */
   background-color: #6f2232;
 }
-
+.main-Profile{
+   display: flex;
+   flex-direction: row;
+}
 .main_content {
   background: #171719;
   margin: 2% 0 0 2%;
-  width: 20vw;
+    width: 20vw;
+    height: 45vh;
+}
+.table_container {
+  background: #171719;
+  -webkit-box-shadow: 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
+  position: absolute;
+  display: flex;
+  margin: -2% 0 0 28%;
+
   height: 45vh;
+  color: white;
 }
 /* .editProfile{
     position: absolute;
@@ -64,47 +90,33 @@ editBtn:hover{
 
   position: absolute;
 }
-.myInputs{
-    
-    width: 90vw;
-    display: flex;
-    /* margin-left: 0%; */
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 10px;
-    margin: 5%;
-}
-.submitBtn{
-    width: 8vw;
-    margin-left: 90%;
-    margin-top: 10px;
-}
-.editInput{
-    margin-left: 90%;
-    width: 15vw;
-    display: flex;
-    padding: 10px;
-     background: #171719;
-     border: none;
-     border-bottom: solid;
-     border-bottom-color: #c3073f;
- 
-}
-.imgUploader{
-    /* margin-left: 90%; */
-    margin: 15px 0 10px 90%;
-}
-.table_container {
-  background: #171719;
-  -webkit-box-shadow: 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
-  box-shadow: 10px 10px 5px -9px rgba(0, 0, 0, 0.75);
-  position: absolute;
-  margin: -2% 0 0 28%;
+.myInputs {
+  width: 90vw;
   display: flex;
-  justify-content: center;
-  height: 50vh;
-  color: white;
+  /* margin-left: 0%; */
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10px;
+  margin: 5%;
+}
+.submitBtn {
+  width: 8vw;
+  margin-left: 90%;
+  margin-top: 10px;
+}
+.editInput {
+  margin-left: 90%;
+  width: 15vw;
+  display: flex;
+  padding: 10px;
+  background: #171719;
+  border: none;
+  border-bottom: solid;
+  border-bottom-color: #c3073f;
+}
+.imgUploader {
+  /* margin-left: 90%; */
+  margin: 15px 0 10px 90%;
 }
 table {
   border-collapse: collapse;

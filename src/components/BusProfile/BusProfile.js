@@ -85,6 +85,8 @@ class BusProfile extends Component {
           );
         }
       );
+          const style = { image: { position: "absolute",
+              display: "flex", margin: "0 20px -4.5% 20px"} };
 
     return (
       <div>
@@ -99,13 +101,14 @@ class BusProfile extends Component {
                   className="profilepic"
                   height={240}
                   width={240}
+                  style={style.image}
                 />
-                <h2>{this.state.businessInfo[0].jobtype}</h2>
+                <h2 className="jobTitle" id="job-title">{this.state.businessInfo[0].jobtype}</h2>
                 <div className="buttons">
-                <button className="appBtn" onClick={this.appActive}>
+                <button className="btn appBtn" onClick={this.appActive}>
                   Schedule Appointment
                 </button>
-                <button className="subBtn" onClick={() => this.addSub()}>
+                <button className="btn subBtn" onClick={() => this.addSub()}>
                   Subscribe
                 </button>
                 </div>

@@ -42,8 +42,7 @@ class Header extends Component {
                     Hello, {this.props.user.name}
                   </h1>
                 </Link>
-                <i class="fas fa-user" />
-                <i class="fas fa-envelope" />
+              
               </div>
             </header>
           </div> : <div>

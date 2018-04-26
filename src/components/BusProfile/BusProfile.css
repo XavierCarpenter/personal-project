@@ -9,7 +9,9 @@ color: white;
     color: white;
     display: flex;
     flex-direction: row;
-
+}
+.profilepic{
+    background: blue;
 }
 .about_strip h2{
     font-size: 2em;
@@ -19,6 +21,27 @@ color: white;
     display: flex;
     margin: 0 20%;
     flex-direction: row;
+}
+#job-title{
+    position: absolute;
+    margin: 50px 0 0 30px;
+}
+.btn{
+      font-weight: bold;
+  font-size: 17px;
+  line-height: 25.5px;
+  border:solid 1px #6f2232;;
+  -webkit-border-radius: 34px;
+  -moz-border-radius: 34px;
+  border-radius: 34px;
+  color: black;
+  background: #202024;
+  height: 34px;
+}
+.btn:hover{
+    cursor: pointer;
+    color: #c3073f;
+
 }
 .appBtn{
     display: flex;

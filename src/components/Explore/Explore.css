@@ -36,6 +36,9 @@ box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
     padding: 25px;
     display: flex;
     flex-direction: row;
+    border-bottom: solid 3px #c3073f;
+  
+    
     
 }
 .bus_container{
@@ -43,7 +46,7 @@ box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
 -webkit-border-radius: 15px;
 -moz-border-radius: 15px;
 border-radius: 15px;
-   margin: 5% 0 0 0;
+   margin: 5% 5px;
     display: flex;
     /* flex-direction: row;
     justify-content: flex-start;

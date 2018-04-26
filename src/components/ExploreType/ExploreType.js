@@ -34,14 +34,14 @@ class ExploreType extends Component {
     });
   }
   render() {
-    return <div className= "explore_container">
-        <Header />
-        <h1>exploreType</h1>
-        <h1 className="title">Search Results</h1>
-        {this.state.selected && this.state.selected.map((business, i) => {
+
+    
+    let type = this.state.selected && this.state.selected.map((business, i) => {
+      console.log(business)
             return <div key={i} className="bus_container">
                 <div className="bus_box">
                   <Image src={business.profilepic} alt="profile" className="profilepic" height={240} width={240} />
+                
                   <h3>{business.name}</h3>
                   <h3>
                     {" "}
@@ -52,7 +52,14 @@ class ExploreType extends Component {
                   </Link>
                 </div>
               </div>;
-          })}
+          })
+    return <div className= "explore_container">
+        <Header />
+     
+        <h1 className="searchTitle">Search Results</h1>
+          <div className="jobs">
+        {type}
+        </div>
       </div>;
   }
 }

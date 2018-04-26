@@ -44,9 +44,9 @@ app.use(
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-      maxAge: 100000 //365 * 24 * 60 * 60 * 1000
-    }
+    // cookie: {
+    //   maxAge: 100000 //365 * 24 * 60 * 60 * 1000
+    // }
   })
 );
 
@@ -94,10 +94,10 @@ app.get(
     //if user don't have account
     if (!req.user.city) {
       //send to setup
-      res.redirect(`/#/setup/`);
+      res.redirect(`http://localhost:3000/#/setup/`);
     } else {
       //send to profile
-      res.redirect(`/#/user/${req.user.name}`);
+      res.redirect(`http://localhost:3000/#/user/${req.user.name}`);
     }
   }
 );
@@ -109,7 +109,7 @@ app.get("/api/me", (req, res) => {
 
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("/#/");
+    res.redirect("`http://localhost:3000/#/`");
   });
 });
 

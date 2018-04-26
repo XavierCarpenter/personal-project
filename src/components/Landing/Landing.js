@@ -16,15 +16,16 @@ class Landing extends Component {
   render() {
     return <div className="body">
         <div className="landing-nav">
+        <div className="Logo-Title">
           <h1>Fre3Agent</h1>
+          </div>
+          <div className="Login-Landing">
           <a href={process.env.REACT_APP_LOGIN}>
-            <p>Login</p>
+            <p>Login/Sign Up</p>
           </a>
-          <a href={process.env.REACT_APP_LOGIN}>
-            <p>Sign up</p>
-          </a>
+          </div>
         </div>
-        <div className="container">
+        {/* <div className="container">
           <div className="slider">
             <div className="slide">
               <div className="overlay">
@@ -54,7 +55,7 @@ class Landing extends Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>;
   }
 }
